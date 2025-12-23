@@ -396,33 +396,40 @@ body {
     border-color: var(--primary-blue);
 }
 
-/* --- 7. Mobile View Adjustments (Responsive Row) --- */
-@media (max-width: 1024px) {
-    .nav-logo {
-        height: 60px; /* Slightly smaller logo for tablets */
+/* --- 7. Mobile View Adjustments --- */
+@media (max-width: 768px) {
+    .hero h1 { font-size: 2.5rem; }
+    .search-box {
+        flex-direction: column;
+        align-items: stretch;
+        width: 90%;
+        padding: 20px;
     }
-    .nav-btn {
-        padding: 8px 12px;
-        font-size: 13px;
-    }
+    .input-group select { width: 100%; }
+    .stats { gap: 30px; flex-wrap: wrap; justify-content: center; }
+    .navbar { padding: 15px 5%; }
+    .nav-links { display: none; } /* Consider adding a burger menu here later */
+}
+/* Social Login Buttons Styling */
+.social-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.2s ease;
 }
 
-@media (max-width: 768px) {
-    .navbar {
-        padding: 0 3%;
-        height: 80px;
-    }
-    
-    .nav-logo {
-        height: 50px; /* Smaller logo so buttons fit on one line */
-    }
+.social-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+}
 
-    .nav-links {
-        gap: 8px; /* Tighten space between buttons */
-    }
-
-    .nav-btn {
-        padding: 6px 10px;
-        font-size: 11px; /* Smaller text so nothing wraps to a second line */
-    }
+.social-btn img {
+    max-width: 24px;
+    max-height: 24px;
+    display: block;
 }
