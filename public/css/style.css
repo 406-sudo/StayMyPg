@@ -40,13 +40,13 @@ body {
 /* Update the logo container to align items */
 /* Ensure the logo container doesn't have a background */
 .logo {
-    background: none !important;
-    padding: 0;
+    background: transparent !important;
+    padding: 0 !important;
+    border: none !important;
 }
 
-/* Hide the old 'S' text square entirely */
 .logo span {
-    display: none !important;
+    display: none !important; /* This hides the 'S' forever */
 }
 
 /* Make sure the image looks crisp */
