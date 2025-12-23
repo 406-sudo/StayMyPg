@@ -396,35 +396,33 @@ body {
     border-color: var(--primary-blue);
 }
 
-/* --- Responsive Navbar Fix --- */
+/* --- 7. Mobile View Adjustments (Responsive Row) --- */
 @media (max-width: 1024px) {
-    .navbar {
-        padding: 0 4%; /* Reduce side padding to save space */
+    .nav-logo {
+        height: 60px; /* Slightly smaller logo for tablets */
     }
-
     .nav-btn {
-        padding: 8px 12px; /* Make buttons slightly smaller */
-        font-size: 13px;    /* Shrink text size slightly */
-    }
-
-    .nav-links {
-        gap: 5px; /* Bring buttons closer together */
+        padding: 8px 12px;
+        font-size: 13px;
     }
 }
 
 @media (max-width: 768px) {
-    /* If the screen is very small, we allow the links to wrap 
-       or you can hide them behind a menu later */
     .navbar {
-        flex-wrap: wrap; 
-        height: auto !important; 
-        padding: 10px 5%;
+        padding: 0 3%;
+        height: 80px;
+    }
+    
+    .nav-logo {
+        height: 50px; /* Smaller logo so buttons fit on one line */
     }
 
     .nav-links {
-        width: 100%;
-        justify-content: center;
-        margin-top: 10px;
-        order: 2; /* Moves buttons below the logo on mobile */
+        gap: 8px; /* Tighten space between buttons */
+    }
+
+    .nav-btn {
+        padding: 6px 10px;
+        font-size: 11px; /* Smaller text so nothing wraps to a second line */
     }
 }
