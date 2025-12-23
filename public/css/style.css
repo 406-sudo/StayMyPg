@@ -396,40 +396,35 @@ body {
     border-color: var(--primary-blue);
 }
 
-/* --- 7. Mobile View Adjustments --- */
-@media (max-width: 768px) {
-    .hero h1 { font-size: 2.5rem; }
-    .search-box {
-        flex-direction: column;
-        align-items: stretch;
-        width: 90%;
-        padding: 20px;
+/* --- Responsive Navbar Fix --- */
+@media (max-width: 1024px) {
+    .navbar {
+        padding: 0 4%; /* Reduce side padding to save space */
     }
-    .input-group select { width: 100%; }
-    .stats { gap: 30px; flex-wrap: wrap; justify-content: center; }
-    .navbar { padding: 15px 5%; }
-    .nav-links { display: none; } /* Consider adding a burger menu here later */
-}
-/* Social Login Buttons Styling */
-.social-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: all 0.2s ease;
+
+    .nav-btn {
+        padding: 8px 12px; /* Make buttons slightly smaller */
+        font-size: 13px;    /* Shrink text size slightly */
+    }
+
+    .nav-links {
+        gap: 5px; /* Bring buttons closer together */
+    }
 }
 
-.social-btn:hover {
-    background: rgba(255, 255, 255, 0.15);
-    transform: translateY(-2px);
-}
+@media (max-width: 768px) {
+    /* If the screen is very small, we allow the links to wrap 
+       or you can hide them behind a menu later */
+    .navbar {
+        flex-wrap: wrap; 
+        height: auto !important; 
+        padding: 10px 5%;
+    }
 
-.social-btn img {
-    max-width: 24px;
-    max-height: 24px;
-    display: block;
+    .nav-links {
+        width: 100%;
+        justify-content: center;
+        margin-top: 10px;
+        order: 2; /* Moves buttons below the logo on mobile */
+    }
 }
