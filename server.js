@@ -46,13 +46,20 @@ app.get('/login', (req, res) => {
 });
 
 app.post('/login', (req, res) => {
-    const { username } = req.body;
-    // Simple logic: if a username is provided, create a session
-    if (username) {
-        req.session.user = { name: username };
+    const { email, password } = req.body;
+    const users = JSON.parse(fs.readFileSync('./data/users.json', 'utf-8'));
+
+    // Look for the specific user
+    const user = users.find(u => u.email === email && u.password === password);
+
+    if (user) {
+        // SUCCESS: Only create session if user IS FOUND
+        req.session.user = { name: user.username, email: user.email };
         res.redirect('/');
     } else {
-        res.redirect('/login');
+        // FAIL: If not found, do NOT create session, send back to login
+        console.log("Login failed: Incorrect credentials");
+        res.redirect('/login'); 
     }
 });
 
@@ -61,37 +68,22 @@ app.post('/login', (req, res) => {
 // This tells the server: "When someone visits /signup, show the signup.ejs file"
 app.post('/signup', (req, res) => {
     const { username, email, password } = req.body;
-
-    // 1. Path to your user data
     const filePath = './data/users.json';
 
-    // 2. Read existing data (if file exists)
+    // 1. Read the existing file (or start with empty array if file is missing)
     let users = [];
     if (fs.existsSync(filePath)) {
         users = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
     }
 
-    // 3. Check if email already exists to prevent duplicates
-    const alreadyExists = users.find(u => u.email === email);
-    if (alreadyExists) {
-        return res.send("This email is already registered. Please login.");
-    }
-
-    // 4. Add the new "Real" data to your list
-    const newUser = {
-        id: Date.now(), // Unique ID
-        username,
-        email,
-        password, // In a real app, you would encrypt this
-        signupDate: new Date().toISOString()
-    };
-
+    // 2. Add the new user
+    const newUser = { username, email, password };
     users.push(newUser);
 
-    // 5. Save back to the file
+    // 3. CRITICAL: Save the data back to the disk
     fs.writeFileSync(filePath, JSON.stringify(users, null, 2));
 
-    console.log(`New user registered: ${email}`);
+    console.log(`Saved new user: ${email}`);
     res.redirect('/login');
 });
 
