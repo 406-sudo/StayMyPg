@@ -9,12 +9,31 @@ app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true })); // Allows reading form data
 
 // Session Setup
+// ... (your existing session setup is here)
 app.use(session({
     secret: 'staymypg-secret-key',
     resave: false,
     saveUninitialized: true,
-    cookie: { maxAge: 600000 } // Session expires after 10 minutes
+    cookie: { maxAge: 600000 }
 }));
+
+// PASTE IT HERE!
+// --- Ensure Data Directory Exists ---
+const dataPath = './data';
+const usersFilePath = './data/users.json';
+
+if (!fs.existsSync(dataPath)) {
+    fs.mkdirSync(dataPath); 
+}
+
+if (!fs.existsSync(usersFilePath)) {
+    fs.writeFileSync(usersFilePath, JSON.stringify([])); 
+}
+// --- END OF PASTED CODE ---
+
+// --- Middleware: The Gatekeeper ---
+function checkAuth(req, res, next) {
+// ...
 
 // --- Middleware: The Gatekeeper ---
 function checkAuth(req, res, next) {
