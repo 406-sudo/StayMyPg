@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="/css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
-<body style="background-color: #020617; color: white; height: 100vh; display: flex; align-items: center; justify-content: center;">
+<body style="background-color: #020617; color: white; height: 100vh; display: flex; align-items: center; justify-content: center; margin: 0;">
 
     <div style="max-width: 400px; width: 90%; text-align: center; padding: 40px; background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); border-radius: 24px; border: 1px solid rgba(255,255,255,0.1);">
         <h1 style="font-size: 2.5rem; margin-bottom: 10px;">Login to <br><span class="blue-text">StayMyPg</span></h1>
@@ -16,37 +16,36 @@
         <form action="/login" method="POST" style="text-align: left;">
             <div style="margin-bottom: 20px;">
                 <label style="display: block; color: #94a3b8; margin-bottom: 8px;">Username</label>
-                <input type="text" name="username" placeholder="Enter your name" required style="width: 100%; background: #0f172a; border: 1px solid #334155; padding: 12px; border-radius: 10px; color: white; outline: none;">
+                <input type="text" name="username" placeholder="Enter your name" required style="width: 100%; background: #0f172a; border: 1px solid #334155; padding: 12px; border-radius: 10px; color: white; outline: none; box-sizing: border-box;">
             </div>
             <div style="margin-bottom: 20px;">
                 <label style="display: block; color: #94a3b8; margin-bottom: 8px;">Password</label>
-                <input type="password" name="password" placeholder="••••••••" required style="width: 100%; background: #0f172a; border: 1px solid #334155; padding: 12px; border-radius: 10px; color: white; outline: none;">
+                <input type="password" name="password" placeholder="••••••••" required style="width: 100%; background: #0f172a; border: 1px solid #334155; padding: 12px; border-radius: 10px; color: white; outline: none; box-sizing: border-box;">
             </div>
-            <button type="submit" class="search-btn" style="width: 100%; justify-content: center; height: 50px; margin-top: 10px;">Login</button>
+            <button type="submit" class="search-btn" style="width: 100%; justify-content: center; height: 50px; margin-top: 10px; cursor: pointer;">Login</button>
         </form>
 
-    <div style="margin-top: 25px;">
-        <div style="display: flex; align-items: center; margin-bottom: 20px;">
-            <hr style="flex: 1; border: 0; border-top: 1px solid rgba(255,255,255,0.1);">
-            <span style="padding: 0 15px; color: #94a3b8; font-size: 12px; white-space: nowrap;">OR CONTINUE WITH</span>
-            <hr style="flex: 1; border: 0; border-top: 1px solid rgba(255,255,255,0.1);">
+        <div style="margin-top: 25px;">
+            <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                <hr style="flex: 1; border: 0; border-top: 1px solid rgba(255,255,255,0.1);">
+                <span style="padding: 0 15px; color: #94a3b8; font-size: 12px; white-space: nowrap;">OR CONTINUE WITH</span>
+                <hr style="flex: 1; border: 0; border-top: 1px solid rgba(255,255,255,0.1);">
+            </div>
+
+            <div style="display: flex; gap: 15px; justify-content: center;">
+                <a href="#" class="social-btn">
+                    <img src="https://img.icons8.com/color/48/google-logo.png" alt="Google" style="width: 24px;">
+                </a>
+                <a href="#" class="social-btn">
+                    <img src="https://img.icons8.com/fluency/48/facebook-new.png" alt="Facebook" style="width: 24px;">
+                </a>
+                <a href="#" class="social-btn">
+                    <img src="https://www.edigitalagency.com.au/wp-content/uploads/apple-logo-white-png.png" alt="Apple" style="width: 20px;">
+                </a>
+            </div>
         </div>
 
-        <div style="display: flex; gap: 15px; justify-content: center;">
-            <a href="#" class="social-btn">
-                <img src="https://img.icons8.com/color/48/google-logo.png" alt="Google">
-            </a>
-        
-            <a href="#" class="social-btn">
-                <img src="https://img.icons8.com/fluency/48/facebook-new.png" alt="Facebook">
-            </a>
-        
-            <a href="#" class="social-btn">
-                <img src="https://img.icons8.com/ios-filled/50/ffffff/apple-logo.png" alt="Apple" style="width: 22px;">
-            </a>
-        </div>
-    </div>
-        <p style="margin-top: 20px; color: #94a3b8; font-size: 14px;">
+        <p style="margin-top: 25px; color: #94a3b8; font-size: 14px;">
             Don't have an account? <a href="/signup" style="color: #3b82f6; text-decoration: none;">Sign Up</a>
         </p>
     </div>
