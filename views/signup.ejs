@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup - StayMyPg</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body style="background-color: #020617; color: white; height: 100vh; display: flex; align-items: center; justify-content: center;">
+
+    <div style="max-width: 400px; width: 90%; text-align: center; padding: 40px; background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); border-radius: 24px; border: 1px solid rgba(255,255,255,0.1);">
+        <h1 style="font-size: 2.5rem; margin-bottom: 10px;">Create <span class="blue-text">Account</span></h1>
+        <p style="color: #94a3b8; margin-bottom: 30px;">Join StayMyPg to find your perfect home.</p>
+
+        <form action="/login" method="POST" style="text-align: left;">
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; color: #94a3b8; margin-bottom: 8px;">Full Name</label>
+                <input type="text" name="username" placeholder="Your Name" required style="width: 100%; background: #0f172a; border: 1px solid #334155; padding: 12px; border-radius: 10px; color: white; outline: none;">
+            </div>
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; color: #94a3b8; margin-bottom: 8px;">Create Password</label>
+                <input type="password" name="password" placeholder="••••••••" required style="width: 100%; background: #0f172a; border: 1px solid #334155; padding: 12px; border-radius: 10px; color: white; outline: none;">
+            </div>
+            <button type="submit" class="search-btn" style="width: 100%; justify-content: center; height: 50px;">Sign Up</button>
+        </form>
+        
+        <p style="margin-top: 20px; color: #94a3b8; font-size: 14px;">
+            Already have an account? <a href="/login" style="color: #3b82f6; text-decoration: none;">Login</a>
+        </p>
+    </div>
+
+</body>
+</html>
