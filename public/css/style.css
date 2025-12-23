@@ -38,17 +38,21 @@ body {
 }
 
 /* Update the logo container to align items */
+/* Ensure the logo container doesn't have a background */
 .logo {
-    display: flex;
-    align-items: center;
-    font-weight: 700;
-    font-size: 1.5rem;
-    color: white;
+    background: none !important;
+    padding: 0;
 }
 
-/* Remove the old square 'S' styles if they exist */
+/* Hide the old 'S' text square entirely */
 .logo span {
-    display: none; /* This hides the old 'S' just in case */
+    display: none !important;
+}
+
+/* Make sure the image looks crisp */
+.logo img {
+    display: block;
+    max-height: 40px;
 }
 
 .nav-links a {
