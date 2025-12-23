@@ -49,7 +49,7 @@ body {
 /* The actual Logo Image */
 .main-logo {
     /* These values make the logo big while keeping the navbar small */
-    height: 120px !important; 
+    height: 200px !important; 
     width: auto;
     object-fit: contain;
     
@@ -71,8 +71,8 @@ body {
 .logo img {
     display: block;
     /* This forces the logo to be large */
-    width: 80px !important;
-    height: 75px !important;
+    width: 800px !important;
+    height: 750px !important;
     max-height: none !important;
     object-fit: contain;
 }
