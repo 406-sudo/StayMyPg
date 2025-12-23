@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "name": "Skyline Luxury Stay",
+    "location": "Viman Nagar, Pune",
+    "rent": 12000,
+    "gender": "Boys",
+    "image": "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=500"
+  },
+  {
+    "id": 2,
+    "name": "Starlight Girls Hostel",
+    "location": "Kothrud, Pune",
+    "rent": 8500,
+    "gender": "Girls",
+    "image": "https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=500"
+  },
+  {
+    "id": 3,
+    "name": "Hinjewadi Elite PG",
+    "location": "Hinjewadi, Pune",
+    "rent": 10500,
+    "gender": "Co-ed",
+    "image": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=500"
+  }
+]

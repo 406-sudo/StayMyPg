@@ -1,0 +1,330 @@
+/* --- 1. Variables & Global Setup --- */
+:root {
+    --bg-dark: #020617;           /* Deep space blue */
+    --card-bg: rgba(15, 23, 42, 0.9);
+    --primary-blue: #2563eb;      /* Vivid blue from UI */
+    --accent-blue: #3b82f6;
+    --text-white: #ffffff;
+    --text-dim: #94a3b8;
+    --glass-border: rgba(255, 255, 255, 0.1);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-white);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    overflow-x: hidden;
+}
+
+/* --- 2. Navigation Bar --- */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 8%;
+    background: rgba(2, 6, 23, 0.8);
+    backdrop-filter: blur(10px);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    letter-spacing: -0.5px;
+}
+
+.logo span {
+    background: var(--primary-blue);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 6px;
+    margin-right: 8px;
+}
+
+.nav-links a {
+    color: var(--text-white);
+    text-decoration: none;
+    margin-left: 30px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: var(--primary-blue);
+}
+
+.active {
+    background: var(--primary-blue);
+    padding: 8px 20px;
+    border-radius: 8px;
+}
+
+/* --- 3. Hero Section (Centering Logic) --- */
+.hero {
+    height: 100vh;
+    width: 100%;
+    background: linear-gradient(rgba(2, 6, 23, 0.75), rgba(2, 6, 23, 0.75)), 
+                url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1600');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center;     /* Center vertically */
+    padding-top: 80px;       /* Offset for fixed navbar */
+}
+
+.hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;     /* Centers all children vertically */
+    text-align: center;
+    width: 100%;
+    max-width: 900px;
+    padding: 20px;
+}
+
+.hero h1 {
+    font-size: 3.8rem;
+    font-weight: 800;
+    margin-bottom: 15px;
+    line-height: 1.1;
+}
+
+.blue-text {
+    color: var(--primary-blue);
+    /* Neon glow effect */
+    text-shadow: 0 0 20px rgba(37, 99, 235, 0.4);
+}
+
+.hero p {
+    max-width: 650px;
+    color: var(--text-dim);
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+}
+
+/* --- 4. Search Box (Glassmorphism) --- */
+.search-box {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    padding: 25px 40px;
+    border-radius: 24px;
+    display: flex;
+    align-items: flex-end;
+    gap: 20px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    width: fit-content;
+}
+
+.input-group {
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+    color: var(--text-dim);
+    margin-bottom: 8px;
+    padding-left: 5px;
+}
+
+.input-group select {
+    background: #0f172a;
+    color: white;
+    border: 1px solid #334155;
+    padding: 12px 15px;
+    border-radius: 12px;
+    width: 220px;
+    outline: none;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.input-group select:focus {
+    border-color: var(--primary-blue);
+}
+
+.search-btn {
+    background: var(--primary-blue);
+    color: white;
+    border: none;
+    padding: 13px 35px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: 0.3s;
+}
+
+.search-btn:hover {
+    background: #1d4ed8;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(37, 99, 235, 0.3);
+}
+
+/* --- 5. Stats Section --- */
+.stats {
+    display: flex;
+    gap: 80px;
+    margin-top: 60px;
+}
+
+.stats h3 {
+    color: var(--primary-blue);
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 5px;
+}
+
+.stats p {
+    color: var(--text-dim);
+    font-size: 13px;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* --- 6. Responsive PG Grid --- */
+.listings-container {
+    padding: 80px 8%;
+}
+
+.section-title {
+    font-size: 2rem;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.pg-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+}
+
+.pg-card {
+    background: var(--card-bg);
+    border-radius: 24px;
+    overflow: hidden;
+    border: 1px solid var(--glass-border);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.pg-card:hover {
+    transform: translateY(-12px);
+    border-color: var(--primary-blue);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.pg-img-container {
+    position: relative;
+    height: 220px;
+}
+
+.pg-img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.gender-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: var(--primary-blue);
+    padding: 6px 14px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.pg-info {
+    padding: 24px;
+}
+
+.pg-info h3 {
+    font-size: 1.3rem;
+    margin-bottom: 8px;
+}
+
+.loc {
+    color: var(--text-dim);
+    font-size: 14px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.price-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 15px;
+    border-top: 1px solid var(--glass-border);
+}
+
+.price {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--primary-blue);
+}
+
+.price span {
+    font-size: 14px;
+    color: var(--text-dim);
+    font-weight: 400;
+}
+
+.view-btn {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    background: rgba(255,255,255,0.05);
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: 1px solid var(--glass-border);
+    transition: 0.3s;
+}
+
+.view-btn:hover {
+    background: var(--primary-blue);
+    border-color: var(--primary-blue);
+}
+
+/* --- 7. Mobile View Adjustments --- */
+@media (max-width: 768px) {
+    .hero h1 { font-size: 2.5rem; }
+    .search-box {
+        flex-direction: column;
+        align-items: stretch;
+        width: 90%;
+        padding: 20px;
+    }
+    .input-group select { width: 100%; }
+    .stats { gap: 30px; flex-wrap: wrap; justify-content: center; }
+    .navbar { padding: 15px 5%; }
+    .nav-links { display: none; } /* Consider adding a burger menu here later */
+}
