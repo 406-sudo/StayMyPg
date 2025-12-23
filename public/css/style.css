@@ -23,12 +23,11 @@ body {
 }
 
 /* --- 2. Navigation Bar --- */
-/* --- Updated Navigation Bar --- */
 .navbar {
     display: flex;
-    justify-content: space-between; /* This pushes logo to left and links to right */
+    justify-content: space-between;
     align-items: center;
-    padding: 15px 8%; 
+    padding: 20px 8%;
     background: rgba(2, 6, 23, 0.8);
     backdrop-filter: blur(10px);
     position: fixed;
@@ -38,62 +37,16 @@ body {
     border-bottom: 1px solid var(--glass-border);
 }
 
-
-.logo {
-    background: transparent !important;
-    padding: 0 !important;
-}
-
-.logo img {
-    display: block;
-    height: 45px; /* Adjust height based on your image shape */
-    width: auto;
-}
-
-/* --- New Button Alignment & Styling --- */
-.nav-links {
-    display: flex;
-    align-items: center;
-    gap: 10px; /* Space between the buttons */
-}
-
-.nav-btn {
-    text-decoration: none;
-    color: var(--text-white);
-    font-size: 14px;
-    font-weight: 600;
-    padding: 10px 20px;
-    border-radius: 12px;
-    transition: all 0.3s ease;
-}
-
-.nav-btn:hover {
-    background: rgba(255, 255, 255, 0.05);
-    color: var(--accent-blue);
-}
-
-/* The Blue Pill Button */
-.nav-btn.active {
-    background: var(--primary-blue);
-    color: white !important;
-    box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
-}
-
-/* The Red Logout Text */
-.nav-btn.logout {
-    color: #ef4444;
-}
-
 /* Update the logo container to align items */
 /* Ensure the logo container doesn't have a background */
 .logo {
-    background: transparent !important;
-    padding: 0 !important;
-    border: none !important;
+    background: none !important;
+    padding: 0;
 }
 
+/* Hide the old 'S' text square entirely */
 .logo span {
-    display: none !important; /* This hides the 'S' forever */
+    display: none !important;
 }
 
 /* Make sure the image looks crisp */
