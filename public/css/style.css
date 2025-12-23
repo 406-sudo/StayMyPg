@@ -350,6 +350,7 @@ body {
 }
 
 .social-btn img {
-    width: 24px;
+    width: 24px;   /* This keeps the logos small and neat */
     height: 24px;
+    display: block;
 }
