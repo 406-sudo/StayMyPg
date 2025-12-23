@@ -11,12 +11,12 @@
 <body>
 
     <nav class="navbar">
-        <div class="logo"><span>P</span> StayMyPg</div>
+        <div class="logo"><span>S</span> StayMyPg</div>
         <div class="nav-links">
             <a href="/" class="active">Home</a>
             <a href="#">Browse PGs</a>
-            <a href="#">About Us</a>
             <a href="/contact">Contact</a>
+            <a href="/logout" style="color: #ef4444;">Logout</a>
         </div>
     </nav>
 
@@ -25,14 +25,14 @@
             <h1>Find Your Perfect <br><span class="blue-text">PG & Hostel</span> in Pune</h1>
             <p>Discover safe, comfortable, and affordable accommodation near your college.</p>
             
-            <div class="search-box">
+            <form action="/search" method="GET" class="search-box">
                 <div class="input-group">
                     <label>📍 Choose Location</label>
-                    <select id="location">
-                        <option>Select area in Pune</option>
-                        <option>Viman Nagar</option>
-                        <option>Kothrud</option>
-                        <option>Hinjewadi</option>
+                    <select name="location" id="location" required>
+                        <option value="">Select area in Pune</option>
+                        <option value="Viman Nagar">Viman Nagar</option>
+                        <option value="Kothrud">Kothrud</option>
+                        <option value="Hinjewadi">Hinjewadi</option>
                     </select>
                 </div>
                 <div class="input-group">
@@ -41,8 +41,8 @@
                         <option>Select location first</option>
                     </select>
                 </div>
-                <button class="search-btn">🔍 Find PGs</button>
-            </div>
+                <button type="submit" class="search-btn">🔍 Find PGs</button>
+            </form>
 
             <div class="stats">
                 <div><h3>500+</h3><p>Verified PGs</p></div>
@@ -57,7 +57,7 @@
         <div class="pg-grid">
             <% if(pgs.length > 0) { %>
                 <% pgs.forEach(pg => { %>
-                    <div class="pg-card">
+                    <div class="pg-card" onclick="window.location.href='/pg/<%= pg.id %>'" style="cursor: pointer;">
                         <div class="pg-img-container">
                             <img src="<%= pg.image %>" alt="<%= pg.name %>">
                             <span class="gender-badge"><%= pg.gender %></span>
@@ -73,12 +73,17 @@
                     </div>
                 <% }) %>
             <% } else { %>
-                <p>No PGs found in this location.</p>
+                <p style="text-align: center; width: 100%; color: #94a3b8;">No accommodations found for this location.</p>
             <% } %>
         </div>
     </section>
-    <footer>
-        <p>© 2025 StayMyPg</p>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-logo"><span>S</span> StayMyPg</div>
+            <p>© 2025 StayMyPg. All Rights Reserved.</p>
+        </div>
     </footer>
+
 </body>
 </html>
