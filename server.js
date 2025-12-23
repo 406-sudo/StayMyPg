@@ -66,27 +66,37 @@ app.post('/login', (req, res) => {
 // Signup Page
 // Handle Signup form submission
 // This tells the server: "When someone visits /signup, show the signup.ejs file"
+app.get('/signup', (req, res) => {
+    res.render('signup');
+});
 app.post('/signup', (req, res) => {
     const { username, email, password } = req.body;
     const filePath = './data/users.json';
 
-    // 1. Read the existing file (or start with empty array if file is missing)
-    let users = [];
-    if (fs.existsSync(filePath)) {
-        users = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+    try {
+        let users = [];
+        // Ensure the data directory exists
+        if (!fs.existsSync('./data')) {
+            fs.mkdirSync('./data');
+        }
+
+        if (fs.existsSync(filePath)) {
+            const fileData = fs.readFileSync(filePath, 'utf-8');
+            users = JSON.parse(fileData || "[]");
+        }
+
+        // Add the new user
+        users.push({ username, email, password });
+
+        // Save back to disk
+        fs.writeFileSync(filePath, JSON.stringify(users, null, 2));
+        console.log(`✅ Saved new user: ${email}`);
+        res.redirect('/login');
+    } catch (err) {
+        console.error("❌ Signup Error:", err);
+        res.status(500).send("Error saving data");
     }
-
-    // 2. Add the new user
-    const newUser = { username, email, password };
-    users.push(newUser);
-
-    // 3. CRITICAL: Save the data back to the disk
-    fs.writeFileSync(filePath, JSON.stringify(users, null, 2));
-
-    console.log(`Saved new user: ${email}`);
-    res.redirect('/login');
 });
-
 // Protected Search Route
 app.get('/search', checkAuth, (req, res) => {
     const location = req.query.location;
