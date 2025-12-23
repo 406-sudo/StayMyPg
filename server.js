@@ -51,16 +51,9 @@ app.post('/login', (req, res) => {
 
 // Signup Page
 // Handle Signup form submission
-app.post('/signup', (req, res) => {
-    const { username, email, password } = req.body;
-    
-    // For now, we just log them in immediately
-    if (username && password) {
-        req.session.user = { name: username };
-        res.redirect('/');
-    } else {
-        res.redirect('/signup');
-    }
+// This tells the server: "When someone visits /signup, show the signup.ejs file"
+app.get('/signup', (req, res) => {
+    res.render('signup'); 
 });
 
 // Protected Search Route
