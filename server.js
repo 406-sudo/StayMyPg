@@ -59,8 +59,40 @@ app.post('/login', (req, res) => {
 // Signup Page
 // Handle Signup form submission
 // This tells the server: "When someone visits /signup, show the signup.ejs file"
-app.get('/signup', (req, res) => {
-    res.render('signup'); 
+app.post('/signup', (req, res) => {
+    const { username, email, password } = req.body;
+
+    // 1. Path to your user data
+    const filePath = './data/users.json';
+
+    // 2. Read existing data (if file exists)
+    let users = [];
+    if (fs.existsSync(filePath)) {
+        users = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+    }
+
+    // 3. Check if email already exists to prevent duplicates
+    const alreadyExists = users.find(u => u.email === email);
+    if (alreadyExists) {
+        return res.send("This email is already registered. Please login.");
+    }
+
+    // 4. Add the new "Real" data to your list
+    const newUser = {
+        id: Date.now(), // Unique ID
+        username,
+        email,
+        password, // In a real app, you would encrypt this
+        signupDate: new Date().toISOString()
+    };
+
+    users.push(newUser);
+
+    // 5. Save back to the file
+    fs.writeFileSync(filePath, JSON.stringify(users, null, 2));
+
+    console.log(`New user registered: ${email}`);
+    res.redirect('/login');
 });
 
 // Protected Search Route
@@ -96,6 +128,11 @@ app.get('/contact', (req, res) => {
 app.get('/logout', (req, res) => {
     req.session.destroy();
     res.redirect('/');
+});
+// Temporary route to see your registered emails (delete this before going live!)
+app.get('/view-users-secret-list', (req, res) => {
+    const users = JSON.parse(fs.readFileSync('./data/users.json', 'utf-8'));
+    res.json(users); 
 });
 
 // Start Server
