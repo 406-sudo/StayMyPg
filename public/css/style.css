@@ -37,6 +37,24 @@ body {
     z-index: 1000;
     border-bottom: 1px solid var(--glass-border);
 }
+.navbar {
+    display: flex;
+    justify-content: space-between; /* This pushes logo left and buttons right */
+    align-items: center;
+    padding: 10px 8%;
+    /* keep your other background and position styles */
+}
+
+.logo img {
+    height: 45px; /* Adjust this height to fit your logo's shape */
+    width: auto;
+    display: block;
+}
+
+/* Ensure the old StayMyPg text doesn't show up via CSS */
+.logo::after {
+    content: none !important;
+}
 
 .logo {
     background: transparent !important;
