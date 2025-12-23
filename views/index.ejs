@@ -19,7 +19,12 @@
         <a href="/" class="nav-btn active">Home</a>
         <a href="#" class="nav-btn">Browse PGs</a>
         <a href="/contact" class="nav-btn">Contact</a>
-        <a href="/logout" class="nav-btn logout">Logout</a>
+
+        <% if (user) { %>
+            <a href="/logout" class="nav-btn logout">Logout</a>
+        <% } else { %>
+            <a href="/login" class="nav-btn" style="background: var(--primary-blue); color: white;">Login</a>
+        <% } %>
     </div>
 </nav>
 

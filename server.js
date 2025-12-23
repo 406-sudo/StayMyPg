@@ -24,12 +24,19 @@ function checkAuth(req, res, next) {
         res.redirect('/login'); // Not logged in, go to login page
     }
 }
-
+// --- Global Middleware: Pass User to all Views ---
+app.use((req, res, next) => {
+    // If req.session.user exists, res.locals.user will be that user
+    // Otherwise, it will be null
+    res.locals.user = req.session.user || null;
+    next();
+});
 // --- Routes ---
 
 // Home Page
 app.get('/', (req, res) => {
     const data = JSON.parse(fs.readFileSync('./data/pgs.json', 'utf-8'));
+    // The middleware automatically adds 'user' to the render options
     res.render('index', { pgs: data });
 });
 
