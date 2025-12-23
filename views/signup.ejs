@@ -3,29 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Signup - StayMyPg</title>
+    <title>Sign Up - StayMyPg</title>
     <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
-<body style="background-color: #020617; color: white; height: 100vh; display: flex; align-items: center; justify-content: center;">
+<body style="background-color: #020617; color: white; height: 100vh; display: flex; align-items: center; justify-content: center; margin: 0;">
 
-    <div style="max-width: 400px; width: 90%; text-align: center; padding: 40px; background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); border-radius: 24px; border: 1px solid rgba(255,255,255,0.1);">
+    <div style="max-width: 400px; width: 90%; text-align: center; padding: 40px; background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); border-radius: 24px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 20px 40px rgba(0,0,0,0.4);">
         <h1 style="font-size: 2.5rem; margin-bottom: 10px;">Create <span class="blue-text">Account</span></h1>
-        <p style="color: #94a3b8; margin-bottom: 30px;">Join StayMyPg to find your perfect home.</p>
+        <p style="color: #94a3b8; margin-bottom: 30px;">Join StayMyPg to find your perfect Pune stay.</p>
 
-        <form action="/login" method="POST" style="text-align: left;">
+        <form action="/signup" method="POST" style="text-align: left;">
             <div style="margin-bottom: 20px;">
-                <label style="display: block; color: #94a3b8; margin-bottom: 8px;">Full Name</label>
-                <input type="text" name="username" placeholder="Your Name" required style="width: 100%; background: #0f172a; border: 1px solid #334155; padding: 12px; border-radius: 10px; color: white; outline: none;">
+                <label style="display: block; color: #94a3b8; margin-bottom: 8px; font-size: 0.9rem;">Full Name</label>
+                <input type="text" name="username" placeholder="Enter your name" required style="width: 100%; background: #0f172a; border: 1px solid #334155; padding: 12px; border-radius: 10px; color: white; outline: none; box-sizing: border-box;">
             </div>
             <div style="margin-bottom: 20px;">
-                <label style="display: block; color: #94a3b8; margin-bottom: 8px;">Create Password</label>
-                <input type="password" name="password" placeholder="••••••••" required style="width: 100%; background: #0f172a; border: 1px solid #334155; padding: 12px; border-radius: 10px; color: white; outline: none;">
+                <label style="display: block; color: #94a3b8; margin-bottom: 8px; font-size: 0.9rem;">Email Address</label>
+                <input type="email" name="email" placeholder="name@example.com" required style="width: 100%; background: #0f172a; border: 1px solid #334155; padding: 12px; border-radius: 10px; color: white; outline: none; box-sizing: border-box;">
             </div>
-            <button type="submit" class="search-btn" style="width: 100%; justify-content: center; height: 50px;">Sign Up</button>
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; color: #94a3b8; margin-bottom: 8px; font-size: 0.9rem;">Create Password</label>
+                <input type="password" name="password" placeholder="••••••••" required style="width: 100%; background: #0f172a; border: 1px solid #334155; padding: 12px; border-radius: 10px; color: white; outline: none; box-sizing: border-box;">
+            </div>
+            <button type="submit" class="search-btn" style="width: 100%; justify-content: center; height: 50px; margin-top: 10px; cursor: pointer;">Create Account</button>
         </form>
-        
-        <p style="margin-top: 20px; color: #94a3b8; font-size: 14px;">
-            Already have an account? <a href="/login" style="color: #3b82f6; text-decoration: none;">Login</a>
+
+        <div style="margin-top: 25px;">
+            <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                <hr style="flex: 1; border: 0; border-top: 1px solid rgba(255,255,255,0.1);">
+                <span style="padding: 0 15px; color: #94a3b8; font-size: 12px; white-space: nowrap;">OR SIGN UP WITH</span>
+                <hr style="flex: 1; border: 0; border-top: 1px solid rgba(255,255,255,0.1);">
+            </div>
+
+            <div style="display: flex; gap: 15px; justify-content: center;">
+                <a href="#" class="social-btn">
+                    <img src="https://img.icons8.com/color/24/google-logo.png" alt="Google">
+                </a>
+                <a href="#" class="social-btn">
+                    <img src="https://img.icons8.com/fluency/24/facebook-new.png" alt="Facebook">
+                </a>
+                <a href="#" class="social-btn">
+                    <img src="https://img.icons8.com/ios-filled/24/ffffff/apple-logo.png" alt="Apple">
+                </a>
+            </div>
+        </div>
+        <p style="margin-top: 25px; color: #94a3b8; font-size: 14px;">
+            Already have an account? <a href="/login" style="color: #3b82f6; text-decoration: none; font-weight: 600;">Log In</a>
         </p>
     </div>
 
