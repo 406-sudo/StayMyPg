@@ -40,30 +40,22 @@ body {
 
 
 .logo {
-    display: flex;
-    align-items: center;
     background: transparent !important;
     padding: 0 !important;
 }
 
-/* Update the image styles */
 .logo img {
     display: block;
-    height: 60px !important; /* Forces the larger size */
-    max-height: none !important; /* Removes previous restrictions */
+    height: 65px !important;    /* This sets the new larger size */
+    max-height: none !important; /* This removes the 40px limit */
     width: auto;
     object-fit: contain;
 }
 
-/* Subtle hover effect for the logo */
-.logo:hover img {
-    transform: scale(1.05);
-}
-
-/* Ensure the navbar padding accommodates the larger logo */
+/* Also ensure the navbar container doesn't squash the taller logo */
 .navbar {
-    padding: 10px 8%; /* Reduced top/bottom padding slightly to balance the taller logo */
-    /* ... keep your existing styles ... */
+    padding: 10px 8%; 
+    /* ... keep the rest of your navbar styles ... */
 }
 
 /* --- New Button Alignment & Styling --- */
