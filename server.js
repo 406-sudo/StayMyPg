@@ -1,56 +1,42 @@
-const express = require('express');
-const app = express();
-const fs = require('fs');
-const path = require('path');
+const session = require('express-session');
 
-// Set EJS as the template engine
-app.set('view engine', 'ejs');
+// Configure Session
+app.use(session({
+    secret: 'staymypg-secret-key', // A random key to secure your session
+    resave: false,
+    saveUninitialized: true,
+    cookie: { maxAge: 600000 } // Session expires after 10 minutes
+}));
 
-// Tell Express where your CSS/Images are
-app.use(express.static('public'));
-
-// Main Route
-app.get('/', (req, res) => {
-    try {
-        const data = fs.readFileSync('./data/pgs.json', 'utf-8');
-        const pgs = JSON.parse(data);
-        res.render('index', { pgs: pgs });
-    } catch (err) {
-        console.log("Error reading data:", err);
-        res.render('index', { pgs: [] });
+// The "Gatekeeper" Middleware
+function checkAuth(req, res, next) {
+    if (req.session.user) {
+        return next(); // User is logged in, let them through
+    } else {
+        res.redirect('/login'); // Not logged in, send to login page
     }
+}
+
+// PROTECTED ROUTES (Using checkAuth)
+// Now, when a user clicks a PG card, this checks for a login first
+app.get('/pg/:id', checkAuth, (req, res) => {
+    const data = JSON.parse(fs.readFileSync('./data/pgs.json', 'utf-8'));
+    const pg = data.find(p => p.id == req.params.id);
+    res.render('details', { pg: pg });
 });
 
-// Port and Startup Message
-const PORT = 3000;
-// Route for the Details Page
-app.get('/pg/:id', (req, res) => {
-    try {
-        const data = fs.readFileSync('./data/pgs.json', 'utf-8');
-        const pgs = JSON.parse(data);
-        
-        // Find the specific PG that matches the ID in the URL
-        const pg = pgs.find(p => p.id == req.params.id);
-
-        if (pg) {
-            res.render('details', { pg: pg });
-        } else {
-            res.send("PG not found!");
-        }
-    } catch (err) {
-        console.log("Error:", err);
-        res.status(500).send("Internal Server Error");
-    }
+// Protect the search/find PGs action
+app.get('/search', checkAuth, (req, res) => {
+    const location = req.query.location;
+    const data = JSON.parse(fs.readFileSync('./data/pgs.json', 'utf-8'));
+    const filteredPgs = data.filter(p => p.location === location);
+    res.render('index', { pgs: filteredPgs });
 });
 
-// Contact Page Route
-app.get('/contact', (req, res) => {
-    res.render('contact');
-});
-
-app.listen(3000, () => {
-    console.log(`====================================`);
-    console.log(`🚀 StayMyPg IS LIVE!`);
-    console.log(`🔗 http://localhost:3000`);
-    console.log(`====================================`);
+// Login POST route (where the form submits)
+app.post('/login', (req, res) => {
+    const { username, password } = req.body;
+    // For now, any username/password works to create a session
+    req.session.user = { name: username }; 
+    res.redirect('/');
 });
