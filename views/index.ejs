@@ -39,12 +39,12 @@
                     </select>
                 </div>
                 <div class="input-group">
-                    <label> Your College</label>
+                    <label>Your College</label>
                     <select id="college">
-                        <option>Select location </option>
+                        <option>Select location first</option>
                     </select>
                 </div>
-                <button type="submit" class="search-btn"> Find PGs</button>
+                <button type="submit" class="search-btn">Find PGs</button>
             </form>
 
             <div class="stats">
@@ -67,7 +67,7 @@
                         </div>
                         <div class="pg-info">
                             <h3><%= pg.name %></h3>
-                            <p class="loc">📍 <%= pg.location %></p>
+                            <p class="loc"><%= pg.location %></p>
                             <div class="price-row">
                                 <p class="price">₹<%= pg.rent %><span>/mo</span></p>
                                 <a href="/pg/<%= pg.id %>" class="view-btn">Details</a>
@@ -83,7 +83,7 @@
 
     <footer class="main-footer">
         <div class="footer-content">
-            <div class="footer-logo"><span>S</span> StayMyPg</div>
+            <div class="footer-logo">StayMyPg</div>
             <p>© 2025 StayMyPg. All Rights Reserved.</p>
         </div>
     </footer>
