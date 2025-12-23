@@ -39,31 +39,28 @@ app.get('/login', (req, res) => {
 });
 
 app.post('/login', (req, res) => {
-    const { username, password } = req.body;
-
-    // 1. Define a "Test User" (Replace these with what you want)
-    const adminUser = "shiva";
-    const adminPass = "pune123";
-
-    // 2. Check if the input matches our Test User
-    if (username === adminUser && password === adminPass) {
-        req.session.user = { name: username }; // Correct! Create session
+    const { username } = req.body;
+    // Simple logic: if a username is provided, create a session
+    if (username) {
+        req.session.user = { name: username };
         res.redirect('/');
     } else {
-        // 3. If wrong, send them back to login with an error
-        // Note: For now, we just redirect. I'll show you how to show an error message next.
-        res.send(`
-            <script>
-                alert("Invalid Username or Password!");
-                window.location.href = "/login";
-            </script>
-        `);
+        res.redirect('/login');
     }
 });
 
 // Signup Page
-app.get('/signup', (req, res) => {
-    res.render('signup');
+// Handle Signup form submission
+app.post('/signup', (req, res) => {
+    const { username, email, password } = req.body;
+    
+    // For now, we just log them in immediately
+    if (username && password) {
+        req.session.user = { name: username };
+        res.redirect('/');
+    } else {
+        res.redirect('/signup');
+    }
 });
 
 // Protected Search Route
