@@ -328,3 +328,28 @@ body {
     .navbar { padding: 15px 5%; }
     .nav-links { display: none; } /* Consider adding a burger menu here later */
 }
+/* Social Login Buttons Styling */
+.social-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.social-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #3b82f6;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
+}
+
+.social-btn img {
+    width: 24px;
+    height: 24px;
+}
