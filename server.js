@@ -62,18 +62,32 @@ app.get('/login', (req, res) => {
 });
 
 app.post('/login', (req, res) => {
-    // We grab the name from the form just to say 'Welcome'
-    // but we don't check if it's correct.
-    const { email, username } = req.body;
+    const { email, password } = req.body;
+    const filePath = './data/users.json';
 
-    // FORCED LOGIN: We create the session immediately
-    // If you used name="email" in your form, we use that as the name
-    req.session.user = { 
-        name: email || username || "Guest User" 
-    };
+    // 1. Load your stored users
+    const users = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
 
-    console.log("Forced Login Successful");
-    res.redirect('/');
+    // 2. Check if the email exists at all
+    const userExists = users.find(u => u.email === email);
+
+    if (!userExists) {
+        // CONDITION: If user does not exist → signup
+        console.log("User not found, redirecting to signup...");
+        return res.redirect('/signup'); 
+    }
+
+    // 3. If user exists, verify the password
+    if (userExists.password === password) {
+        // CONDITION: If password matches → login
+        req.session.user = { name: userExists.username, email: userExists.email };
+        console.log("✅ Login successful for:", email);
+        return res.redirect('/');
+    } else {
+        // CONDITION: If password wrong → stay on login
+        console.log("❌ Incorrect password attempt.");
+        return res.redirect('/login');
+    }
 });
 
 // Signup Page
@@ -82,33 +96,29 @@ app.post('/login', (req, res) => {
 app.get('/signup', (req, res) => {
     res.render('signup');
 });
+// --- SIGNUP: The "Save" Logic ---
 app.post('/signup', (req, res) => {
     const { username, email, password } = req.body;
     const filePath = './data/users.json';
 
-    try {
-        let users = [];
-        // Ensure the data directory exists
-        if (!fs.existsSync('./data')) {
-            fs.mkdirSync('./data');
-        }
-
-        if (fs.existsSync(filePath)) {
-            const fileData = fs.readFileSync(filePath, 'utf-8');
-            users = JSON.parse(fileData || "[]");
-        }
-
-        // Add the new user
-        users.push({ username, email, password });
-
-        // Save back to disk
-        fs.writeFileSync(filePath, JSON.stringify(users, null, 2));
-        console.log(`✅ Saved new user: ${email}`);
-        res.redirect('/login');
-    } catch (err) {
-        console.error("❌ Signup Error:", err);
-        res.status(500).send("Error saving data");
+    // 1. Read the current list of users
+    let users = [];
+    if (fs.existsSync(filePath)) {
+        users = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
     }
+
+    // 2. Check if email is already taken
+    const alreadyExists = users.find(u => u.email === email);
+    if (alreadyExists) {
+        return res.send("User already exists. Please login.");
+    }
+
+    // 3. Add the new user and save the file
+    users.push({ username, email, password });
+    fs.writeFileSync(filePath, JSON.stringify(users, null, 2));
+
+    console.log(`✅ Saved to data: ${email}`);
+    res.redirect('/login'); // After signup, send them to login
 });
 // Protected Search Route
 app.get('/search', checkAuth, (req, res) => {
