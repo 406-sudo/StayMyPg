@@ -6,92 +6,88 @@
     <title>StayMyPg - Find Your Perfect Stay</title>
     <link rel="stylesheet" href="/css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="icon" href="https://img.icons8.com/fluency/48/s-key.png" type="image/x-icon">
 </head>
 <body>
 
 <nav class="navbar">
     <a href="/" class="logo">
-        <img src="/image/logo.jpeg" alt="StayMyPg Logo" style="width: 150px; height: 130px; object-fit: contain;">
+        <img src="/image/logo.jpeg" alt="Logo" style="width: 150px; height: 130px; object-fit: contain;">
     </a>
-
     <div class="nav-links">
         <a href="/" class="nav-btn active">Home</a>
-        <a href="#" class="nav-btn">Browse PGs</a>
         <a href="/contact" class="nav-btn">Contact</a>
-
         <% if (user) { %>
             <a href="/logout" class="nav-btn logout">Logout</a>
         <% } else { %>
-            <a href="/login" class="nav-btn" style="background: var(--primary-blue); color: white;">Login</a>
+            <a href="/login" class="nav-btn">Login</a>
         <% } %>
     </div>
 </nav>
 
-    <header class="hero">
-        <div class="hero-content">
-            <h1>Find Your Perfect <br><span class="blue-text">PG & Hostel</span> in Pune</h1>
-            <p>Discover safe, comfortable, and affordable accommodation near your college.</p>
-            
-            <form action="/search" method="GET" class="search-box">
-                <div class="input-group">
-                    <label>Choose Location</label>
-                    <select name="location" id="location" required>
-                        <option value="">Select area in Pune</option>
-                        <option value="Viman Nagar">Viman Nagar</option>
-                        <option value="Kothrud">Kothrud</option>
-                        <option value="Hinjewadi">Hinjewadi</option>
-                    </select>
-                </div>
-                <div class="input-group">
-                    <label>Your College</label>
-                    <select id="college">
-                        <option>Select location first</option>
-                    </select>
-                </div>
-                <button type="submit" class="search-btn">Find PGs</button>
-            </form>
-
-            <div class="stats">
-                <div><h3>500+</h3><p>Verified PGs</p></div>
-                <div><h3>10k+</h3><p>Happy Students</p></div>
-                <div><h3>50+</h3><p>Areas Covered</p></div>
+<header class="hero">
+    <div class="hero-content">
+        <h1>Find Your Perfect <span class="blue-text">PG & Hostel</span></h1>
+        
+        <form action="/search" method="GET" class="search-box">
+            <div class="input-group">
+                <label>Choose Location</label>
+                <select name="location" id="locationSelect" required onchange="updateColleges()">
+                    <option value="">Select area in Pune</option>
+                    <% if (typeof areaData !== 'undefined') { %>
+                        <% areaData.forEach(area => { %>
+                            <option value="<%= area.location %>"><%= area.location %></option>
+                        <% }) %>
+                    <% } %>
+                </select>
             </div>
-        </div>
-    </header>
+            
+            <div class="input-group">
+                <label>Your College</label>
+                <select name="college" id="collegeSelect">
+                    <option value="">Select location first</option>
+                </select>
+            </div>
+            
+            <button type="submit" class="search-btn">Find PGs</button>
+        </form>
+    </div>
+</header>
 
-    <section class="listings-container">
-        <h2 class="section-title">Available Accommodations</h2>
-        <div class="pg-grid">
-            <% if(pgs.length > 0) { %>
-                <% pgs.forEach(pg => { %>
-                    <div class="pg-card" onclick="window.location.href='/pg/<%= pg.id %>'" style="cursor: pointer;">
-                        <div class="pg-img-container">
-                            <img src="<%= pg.image %>" alt="<%= pg.name %>">
-                            <span class="gender-badge"><%= pg.gender %></span>
-                        </div>
-                        <div class="pg-info">
-                            <h3><%= pg.name %></h3>
-                            <p class="loc"><%= pg.location %></p>
-                            <div class="price-row">
-                                <p class="price">₹<%= pg.rent %><span>/mo</span></p>
-                                <a href="/pg/<%= pg.id %>" class="view-btn">Details</a>
-                            </div>
-                        </div>
+<section class="listings-container">
+    <div class="pg-grid">
+        <% if(pgs && pgs.length > 0) { %>
+            <% pgs.forEach(pg => { %>
+                <div class="pg-card" onclick="window.location.href='/pg/<%= pg.id %>'">
+                    <img src="<%= pg.image %>" alt="<%= pg.name %>">
+                    <div class="pg-info">
+                        <h3><%= pg.name %></h3>
+                        <p><%= pg.location %></p>
+                        <p class="price">₹<%= pg.rent %></p>
                     </div>
-                <% }) %>
-            <% } else { %>
-                <p style="text-align: center; width: 100%; color: #94a3b8;">No accommodations found for this location.</p>
-            <% } %>
-        </div>
-    </section>
+                </div>
+            <% }) %>
+        <% } else { %>
+            <p style="text-align: center; width: 100%;">No accommodations found.</p>
+        <% } %>
+    </div>
+</section>
 
-    <footer class="main-footer">
-        <div class="footer-content">
-            <div class="footer-logo">StayMyPg</div>
-            <p>© 2025 StayMyPg. All Rights Reserved.</p>
-        </div>
-    </footer>
+<script>
+    function updateColleges() {
+        const areaVal = document.getElementById('locationSelect').value;
+        const collDrop = document.getElementById('collegeSelect');
+        collDrop.innerHTML = '<option value="">Select College</option>';
+        
+        const areaMatch = areaData.find(a => a.location === areaVal);
+        if (areaMatch && areaMatch.colleges) {
+            areaMatch.colleges.forEach(c => {
+                const opt = document.createElement('option');
+                opt.value = opt.text = c;
+                collDrop.appendChild(opt);
+            });
+        }
+    }
+</script>
 
 </body>
 </html>
