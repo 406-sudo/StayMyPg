@@ -36,17 +36,17 @@
             <form action="/search" method="GET" class="search-box">
                 <div class="input-group">
                     <label>Choose Location</label>
-                    <select name="location" id="location" required>
+                    <select name="location" id="locationSelect" required onchange="updateColleges()">
                         <option value="">Select area in Pune</option>
-                        <option value="Viman Nagar">Viman Nagar</option>
-                        <option value="Kothrud">Kothrud</option>
-                        <option value="Hinjewadi">Hinjewadi</option>
+            <% areaData.forEach(area => { %>
+                            <option value="<%= area.location %>"><%= area.location %></option>
+            <% }) %>
                     </select>
                 </div>
                 <div class="input-group">
                     <label>Your College</label>
-                    <select id="college">
-                        <option>Select location first</option>
+                    <select name="college" id="collegeSelect">
+                        <option value="">Select location first</option>
                     </select>
                 </div>
                 <button type="submit" class="search-btn">Find PGs</button>

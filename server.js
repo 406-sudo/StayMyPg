@@ -120,15 +120,21 @@ app.post('/signup', (req, res) => {
 });
 // Protected Search Route
 app.get('/search', checkAuth, (req, res) => {
-    const location = req.query.location;
-    const data = JSON.parse(fs.readFileSync('./data/pgs.json', 'utf-8'));
-    
-    let filteredPgs = data;
-    if (location && location !== "Select area in Pune") {
-        filteredPgs = data.filter(p => p.location === location);
+    const { location, college } = req.query; // Get both from the form
+    const pgs = JSON.parse(fs.readFileSync('./data/pgs.json', 'utf-8'));
+    const areaData = JSON.parse(fs.readFileSync('./data/areas.json', 'utf-8'));
+
+    let filteredPgs = pgs;
+
+    // Filter by location first
+    if (location) {
+        filteredPgs = filteredPgs.filter(p => p.location === location);
     }
-    
-    res.render('index', { pgs: filteredPgs });
+
+    // You can also add specific college tags to your pgs.json later 
+    // for even more accurate searching!
+
+    res.render('index', { pgs: filteredPgs, areaData: areaData });
 });
 
 // Protected Details Route
