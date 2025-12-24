@@ -51,9 +51,11 @@ app.use((req, res, next) => {
 
 // Home Page
 app.get('/', (req, res) => {
-    const data = JSON.parse(fs.readFileSync('./data/pgs.json', 'utf-8'));
-    // The middleware automatically adds 'user' to the render options
-    res.render('index', { pgs: data });
+    const pgsData = JSON.parse(fs.readFileSync('./data/pgs.json', 'utf-8'));
+    const areasData = JSON.parse(fs.readFileSync('./data/areas.json', 'utf-8'));
+    
+    // You MUST pass areaData here for the dropdowns to work
+    res.render('index', { pgs: pgsData, areaData: areasData }); 
 });
 
 // Login Pages (GET and POST)
@@ -63,30 +65,14 @@ app.get('/login', (req, res) => {
 
 app.post('/login', (req, res) => {
     const { email, password } = req.body;
-    const filePath = './data/users.json';
+    const users = JSON.parse(fs.readFileSync('./data/users.json', 'utf-8'));
+    const user = users.find(u => u.email === email && u.password === password);
 
-    // 1. Load your stored users
-    const users = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
-
-    // 2. Check if the email exists at all
-    const userExists = users.find(u => u.email === email);
-
-    if (!userExists) {
-        // CONDITION: If user does not exist → signup
-        console.log("User not found, redirecting to signup...");
-        return res.redirect('/signup'); 
-    }
-
-    // 3. If user exists, verify the password
-    if (userExists.password === password) {
-        // CONDITION: If password matches → login
-        req.session.user = { name: userExists.username, email: userExists.email };
-        console.log("✅ Login successful for:", email);
-        return res.redirect('/');
+    if (user) {
+        req.session.user = { name: user.username, email: user.email };
+        res.redirect('/'); // This redirects to app.get('/')
     } else {
-        // CONDITION: If password wrong → stay on login
-        console.log("❌ Incorrect password attempt.");
-        return res.redirect('/login');
+        res.redirect('/login');
     }
 });
 

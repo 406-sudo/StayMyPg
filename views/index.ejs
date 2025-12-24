@@ -44,9 +44,12 @@
                     </select>
                 </div>
                 <div class="input-group">
-                    <label>Your College</label>
-                    <select name="college" id="collegeSelect">
-                        <option value="">Select location first</option>
+                    <label>Choose Location</label>
+                    <select name="location" id="locationSelect" required onchange="updateColleges()">
+                        <option value="">Select area in Pune</option>
+                        <% areaData.forEach(area => { %>
+                            <option value="<%= area.location %>"><%= area.location %></option>
+                        <% }) %>
                     </select>
                 </div>
                 <button type="submit" class="search-btn">Find PGs</button>
