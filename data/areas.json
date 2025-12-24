@@ -1,0 +1,114 @@
+[
+  {
+    "id": 1,
+    "name": "Karve Nagar Area",
+    "location": "Karve Nagar, Pune",
+    "colleges": [
+      "Cummins College of Engineering for Women",
+      "Marathwada Mitra Mandal College of Engineering",
+      "Karve Institute of Social Service",
+      "MIT World Peace University",
+      "Fergusson College"
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Shivajinagar Area",
+    "location": "Shivajinagar, Pune",
+    "colleges": [
+      "Fergusson College",
+      "Modern College of Arts Science and Commerce",
+      "College of Engineering Pune (COEP)",
+      "AISSMS College of Engineering",
+      "St Vincent College"
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Bund Garden Area",
+    "location": "Bund Garden, Pune",
+    "colleges": [
+      "Ness Wadia College of Commerce",
+      "Neville Wadia Institute of Management",
+      "St Mira’s College for Girls",
+      "St Vincent College",
+      "Poona College of Arts Science and Commerce"
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Dhankawadi Area",
+    "location": "Dhankawadi, Pune",
+    "colleges": [
+      "Pune Institute of Computer Technology (PICT)",
+      "Bharati Vidyapeeth Deemed University",
+      "Indira College of Engineering"
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Kothrud Area",
+    "location": "Kothrud, Pune",
+    "colleges": [
+      "MIT World Peace University",
+      "Swaraj College of Commerce",
+      "Indian Statistical Institute (ISI)",
+      "Cummins College of Engineering for Women"
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Viman Nagar Area",
+    "location": "Viman Nagar, Pune",
+    "colleges": [
+      "Symbiosis Institute of Technology",
+      "Symbiosis School of Economics",
+      "Symbiosis Centre for Management Studies",
+      "St Mira’s College for Girls",
+      "Ness Wadia College of Commerce"
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Yerawada Area",
+    "location": "Yerawada, Pune",
+    "colleges": [
+      "Deccan College Post Graduate and Research Institute",
+      "Ness Wadia College of Commerce",
+      "Symbiosis Institute of Technology"
+    ]
+  },
+  {
+    "id": 8,
+    "name": "Camp Area",
+    "location": "Pune Camp, Pune",
+    "colleges": [
+      "Fergusson College",
+      "St Vincent College",
+      "Poona College of Arts Science and Commerce",
+      "Modern College of Arts Science and Commerce"
+    ]
+  },
+  {
+    "id": 9,
+    "name": "Tathawade Area",
+    "location": "Tathawade, Pune",
+    "colleges": [
+      "JSPM Institutes",
+      "Indira College of Engineering",
+      "Balaji Institute of Modern Management",
+      "Symbiosis Institute of Technology"
+    ]
+  },
+  {
+    "id": 10,
+    "name": "Sus Area",
+    "location": "Sus, Pune",
+    "colleges": [
+      "IISER Pune",
+      "Symbiosis Institute of Technology",
+      "FLAME University",
+      "MIT World Peace University"
+    ]
+  }
+]

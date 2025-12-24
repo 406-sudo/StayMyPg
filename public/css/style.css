@@ -71,7 +71,7 @@ body {
 .logo img {
     display: block;
     /* This forces the logo to be large */
-    width: 150px !important;
+    width: 200px !important;
     height: px !important;
     max-height: none !important;
     object-fit: contain;
