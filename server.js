@@ -31,9 +31,6 @@ if (!fs.existsSync(usersFilePath)) {
 }
 // --- END OF PASTED CODE ---
 
-// --- Middleware: The Gatekeeper ---
-function checkAuth(req, res, next) {
-// ...
 
 // --- Middleware: The Gatekeeper ---
 function checkAuth(req, res, next) {
@@ -65,21 +62,18 @@ app.get('/login', (req, res) => {
 });
 
 app.post('/login', (req, res) => {
-    const { email, password } = req.body;
-    const users = JSON.parse(fs.readFileSync('./data/users.json', 'utf-8'));
+    // We grab the name from the form just to say 'Welcome'
+    // but we don't check if it's correct.
+    const { email, username } = req.body;
 
-    // Look for the specific user
-    const user = users.find(u => u.email === email && u.password === password);
+    // FORCED LOGIN: We create the session immediately
+    // If you used name="email" in your form, we use that as the name
+    req.session.user = { 
+        name: email || username || "Guest User" 
+    };
 
-    if (user) {
-        // SUCCESS: Only create session if user IS FOUND
-        req.session.user = { name: user.username, email: user.email };
-        res.redirect('/');
-    } else {
-        // FAIL: If not found, do NOT create session, send back to login
-        console.log("Login failed: Incorrect credentials");
-        res.redirect('/login'); 
-    }
+    console.log("Forced Login Successful");
+    res.redirect('/');
 });
 
 // Signup Page
