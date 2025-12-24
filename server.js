@@ -51,11 +51,9 @@ app.use((req, res, next) => {
 
 // Home Page
 app.get('/', (req, res) => {
-    const pgsData = JSON.parse(fs.readFileSync('./data/pgs.json', 'utf-8'));
-    const areasData = JSON.parse(fs.readFileSync('./data/areas.json', 'utf-8'));
-    
-    // You MUST pass areaData here for the dropdowns to work
-    res.render('index', { pgs: pgsData, areaData: areasData }); 
+    const data = JSON.parse(fs.readFileSync('./data/pgs.json', 'utf-8'));
+    // The middleware automatically adds 'user' to the render options
+    res.render('index', { pgs: data });
 });
 
 // Login Pages (GET and POST)
@@ -65,14 +63,30 @@ app.get('/login', (req, res) => {
 
 app.post('/login', (req, res) => {
     const { email, password } = req.body;
-    const users = JSON.parse(fs.readFileSync('./data/users.json', 'utf-8'));
-    const user = users.find(u => u.email === email && u.password === password);
+    const filePath = './data/users.json';
 
-    if (user) {
-        req.session.user = { name: user.username, email: user.email };
-        res.redirect('/'); // This redirects to app.get('/')
+    // 1. Load your stored users
+    const users = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+
+    // 2. Check if the email exists at all
+    const userExists = users.find(u => u.email === email);
+
+    if (!userExists) {
+        // CONDITION: If user does not exist → signup
+        console.log("User not found, redirecting to signup...");
+        return res.redirect('/signup'); 
+    }
+
+    // 3. If user exists, verify the password
+    if (userExists.password === password) {
+        // CONDITION: If password matches → login
+        req.session.user = { name: userExists.username, email: userExists.email };
+        console.log("✅ Login successful for:", email);
+        return res.redirect('/');
     } else {
-        res.redirect('/login');
+        // CONDITION: If password wrong → stay on login
+        console.log("❌ Incorrect password attempt.");
+        return res.redirect('/login');
     }
 });
 
@@ -106,21 +120,15 @@ app.post('/signup', (req, res) => {
 });
 // Protected Search Route
 app.get('/search', checkAuth, (req, res) => {
-    const { location, college } = req.query; // Get both from the form
-    const pgs = JSON.parse(fs.readFileSync('./data/pgs.json', 'utf-8'));
-    const areaData = JSON.parse(fs.readFileSync('./data/areas.json', 'utf-8'));
-
-    let filteredPgs = pgs;
-
-    // Filter by location first
-    if (location) {
-        filteredPgs = filteredPgs.filter(p => p.location === location);
+    const location = req.query.location;
+    const data = JSON.parse(fs.readFileSync('./data/pgs.json', 'utf-8'));
+    
+    let filteredPgs = data;
+    if (location && location !== "Select area in Pune") {
+        filteredPgs = data.filter(p => p.location === location);
     }
-
-    // You can also add specific college tags to your pgs.json later 
-    // for even more accurate searching!
-
-    res.render('index', { pgs: filteredPgs, areaData: areaData });
+    
+    res.render('index', { pgs: filteredPgs });
 });
 
 // Protected Details Route
