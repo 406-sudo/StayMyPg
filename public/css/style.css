@@ -433,3 +433,100 @@ body {
     max-height: 24px;
     display: block;
 }
+/* Inquiry Section Styling */
+.inquiry-container {
+    padding: 60px 20px;
+    background-color: #f8fafc; /* Light gray background to separate from white sections */
+    display: flex;
+    justify-content: center;
+}
+
+.inquiry-card {
+    background: #ffffff;
+    max-width: 650px;
+    width: 100%;
+    padding: 40px;
+    border-radius: 24px; /* Curved corners */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05); /* Soft shadow for depth */
+}
+
+.inquiry-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.inquiry-header h2 {
+    color: #1e293b;
+    font-size: 24px;
+    margin-bottom: 8px;
+}
+
+.inquiry-header p {
+    color: #64748b;
+    font-size: 15px;
+}
+
+/* Comfortable Form Spacing */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+label {
+    display: block;
+    font-weight: 600;
+    color: #334155;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 14px 18px;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 12px; /* Curved inputs */
+    font-size: 15px;
+    transition: all 0.3s ease;
+    background: #fdfdfd;
+}
+
+input:focus, textarea:focus {
+    outline: none;
+    border-color: #3b82f6; /* Blue border on click */
+    background: #fff;
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+}
+
+/* Button with soft curve */
+.inquiry-submit-btn {
+    width: 100%;
+    padding: 16px;
+    background: #3b82f6;
+    color: white;
+    border: none;
+    border-radius: 14px;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-top: 10px;
+}
+
+.inquiry-submit-btn:hover {
+    background: #2563eb;
+}
+
+/* Responsive adjustment for Mobile */
+@media (max-width: 600px) {
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    .inquiry-card {
+        padding: 25px;
+    }
+}

@@ -22,5 +22,86 @@
     "rent": 10500,
     "gender": "Co-ed",
     "image": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=500"
+  },
+  {
+    "id": 4,
+    "name": "Skyline Luxury Stay",
+    "location": "Viman Nagar, Pune",
+    "rent": 12000,
+    "gender": "Co-ed",
+    "image": "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?q=80&w=1000"
+  },
+  {
+    "id": 5,
+    "name": "Starlight Girls Hostel",
+    "location": "Kothrud, Pune",
+    "rent": 8500,
+    "gender": "Girls",
+    "image": "https://images.unsplash.com/photo-1555854877-bab0e564b8d5?q=80&w=1169&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+  },
+  {
+    "id": 6,
+    "name": "Hinjewadi Elite PG",
+    "location": "Hinjewadi, Pune",
+    "rent": 10500,
+    "gender": "Unisex",
+    "image": "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?q=80&w=1000"
+  },
+  {
+    "id": 7,
+    "name": "Green View Residency",
+    "location": "Karve Nagar, Pune",
+    "rent": 9000,
+    "gender": "Girls",
+    "image": "https://images.unsplash.com/photo-1614870987703-b3b13052a296?q=80&w=1176&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+  },
+  {
+    "id": 8,
+    "name": "Metro Heights PG",
+    "location": "Shivajinagar, Pune",
+    "rent": 11000,
+    "gender": "Boys",
+    "image": "https://images.unsplash.com/photo-1623625434462-e5e42318ae49?q=80&w=1171&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+  },
+  {
+    "id": 9,
+    "name": "The Orchid House",
+    "location": "Baner, Pune",
+    "rent": 13000,
+    "gender": "Unisex",
+    "image": "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?q=80&w=1000"
+  },
+  {
+    "id": 10,
+    "name": "Sahyadri Boys Hostel",
+    "location": "Dhankawadi, Pune",
+    "rent": 7500,
+    "gender": "Boys",
+    "image": "https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=1000"
+  },
+  {
+    "id": 11,
+    "name": "Royal Palms Living",
+    "location": "Viman Nagar, Pune",
+    "rent": 14000,
+    "gender": "Girls",
+    "image": "https://plus.unsplash.com/premium_photo-1723925124184-21522797f0cd?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+  },
+  {
+    "id": 12,
+    "name": "Student Square PG",
+    "location": "Kothrud, Pune",
+    "rent": 8000,
+    "gender": "Boys",
+    "image": "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=1000"
+  },
+  {
+    "id": 13,
+    "name": "Blue Bell Residency",
+    "location": "Wakad, Pune",
+    "rent": 9500,
+    "gender": "Unisex",
+    "image": "https://plus.unsplash.com/premium_photo-1744390860348-30a0aadf3a6d?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
   }
 ]
+  

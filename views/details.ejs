@@ -35,7 +35,44 @@
                 </ul>
             </div>
         </section>
+        <section class="inquiry-container">
+            <div class="inquiry-card">
+                <div class="inquiry-header">
+                    <h2>Interested in this PG?</h2>
+                    <p>Send an inquiry to the owner for availability and visiting hours.</p>
+                </div>
 
+                <form action="/inquire" method="POST" class="modern-form">
+                    <input type="hidden" name="pgId" value="<%= pg.id %>">
+                    <input type="hidden" name="pgName" value="<%= pg.name %>">
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" name="userName" required placeholder="Your Name">
+                        </div>
+                        <div class="form-group">
+                            <label>Mobile Number</label>
+                            <input type="tel" name="userPhone" required placeholder="+91 98765 43210">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email Address (Optional)</label>
+                        <input type="email" name="userEmail" placeholder="name@example.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Message</label>
+                        <textarea name="message" rows="3" placeholder="I would like to visit this PG ..."></textarea>
+                    </div>
+
+                    <button type="submit" class="inquiry-submit-btn">
+                        Send Inquiry
+                    </button>
+                </form>
+            </div>
+        </section>
         <aside>
             <div style="background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); padding: 40px; border-radius: 24px; border: 1px solid rgba(255,255,255,0.1); position: sticky; top: 120px;">
                 <p style="text-transform: uppercase; font-size: 12px; font-weight: 800; color: #94a3b8; letter-spacing: 1px;">Monthly Rent</p>

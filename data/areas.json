@@ -1,17 +1,27 @@
 [
   {
     "id": 1,
-    "location": "Viman Nagar, Pune",
-    "colleges": ["Symbiosis Institute", "Symbiosis Economics", "St Mira's"]
+    "location": "Karve Nagar, Pune",
+    "colleges": ["Cummins College", "MMCOE", "Karve Institute"]
   },
   {
     "id": 2,
-    "location": "Kothrud, Pune",
-    "colleges": ["MIT WPU", "Cummins College", "Swaraj College"]
+    "location": "Shivajinagar, Pune",
+    "colleges": ["AISSMS IOIT", "COEP", "Fergusson College", "Modern College"]
+  },
+  {
+    "id": 3,
+    "location": "Dhankawadi, Pune",
+    "colleges": ["PICT", "Bharati Vidyapeeth"]
   },
   {
     "id": 4,
-    "location": "Dhankawadi, Pune",
-    "colleges": ["PICT", "Bharati Vidyapeeth"]
-  }
+    "location": "Viman Nagar, Pune",
+    "colleges": ["Symbiosis Institute", "Symbiosis Economics"]
+  },
+  {
+    "id": 5,
+    "location": "Kothrud, Pune",
+    "colleges": [""]
+  } 
 ]
