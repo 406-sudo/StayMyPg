@@ -52,45 +52,110 @@
     </div>
 </header>
 
-<div class="filter-wrapper">
-    <button class="filter-toggle-btn" onclick="document.getElementById('filterMenu').classList.toggle('show')">
-        🔍 Filter Options
-    </button>
+<div class="action-row">
+    <div class="sort-container">
+        <select class="sort-select" onchange="applySort(this.value)">
+            <option value="" disabled selected>Sort By Price</option>
+            <option value="low">Low to High</option>
+            <option value="high">High to Low</option>
+        </select>
+    </div>
 
-    <div id="filterMenu" class="filter-dropdown-content">
-        <form action="/search" method="GET">
-            <input type="hidden" name="location" value="<%= typeof location !== 'undefined' ? location : '' %>">
-            
-            <div class="filter-group">
-                <label>Gender</label>
-                <select name="gender">
-                    <option value="">Any</option>
-                    <option value="Boys">Boys</option>
-                    <option value="Girls">Girls</option>
-                    <option value="Unisex">Unisex</option>
-                </select>
-            </div>
-
-            <div class="filter-group">
-                <label>Sharing</label>
-                <select name="sharing">
-                    <option value="">Any</option>
-                    <option value="2">2 Sharing</option>
-                    <option value="3">3 Sharing</option>
-                    <option value="4">4 Sharing</option>
-                </select>
-            </div>
-
-            <div class="amenities-grid">
-                <label><input type="checkbox" name="wifi" value="true"> WiFi</label>
-                <label><input type="checkbox" name="food" value="true"> Food</label>
-                <label><input type="checkbox" name="ac" value="true"> AC</label>
-            </div>
-
-            <button type="submit" class="apply-btn">Apply Filters</button>
-        </form>
+    <div class="filter-trigger-container">
+        <button class="filter-sidebar-btn" onclick="toggleSidebar()">
+            <i class="fas fa-filter"></i> Filters
+        </button>
     </div>
 </div>
+
+<section class="listings-container">
+    <div class="pg-grid">
+        <% if(pgs.length > 0) { %>
+            <% pgs.forEach(pg => { %>
+                <div class="pg-card" onclick="window.location.href='/pg/<%= pg.id %>'">
+                    <div class="pg-img-container">
+                        <img src="<%= pg.image %>" alt="<%= pg.name %>">
+                        <span class="gender-badge <%= pg.gender.toLowerCase() %>">
+                            <%= pg.gender %>
+                        </span>
+                    </div>
+                    <div style="padding: 20px;">
+                        <h3><%= pg.name %></h3>
+                        <p><%= pg.location %></p>
+                        <p class="price">₹<%= pg.rent %></p>
+                    </div>
+                </div>
+            <% }) %>
+        <% } else { %>
+            <p style="text-align: center; width: 100%; color: white;">No PGs listed yet.</p>
+        <% } %>
+    </div>
+</section>
+
+<div id="filterSidebar" class="sidebar">
+    <div class="sidebar-header">
+        <h3>Filters</h3>
+        <button class="close-btn" onclick="toggleSidebar()">&times;</button>
+    </div>
+    <form action="/search" method="GET" class="sidebar-content">
+        <input type="hidden" name="location" value="<%= typeof location !== 'undefined' ? location : '' %>">
+        
+        <div class="filter-category">
+            <p class="category-title">GENDER</p>
+            <div class="checkbox-group">
+                <label><input type="radio" name="gender" value="Boys"> Boys</label>
+                <label><input type="radio" name="gender" value="Girls"> Girls</label>
+                <label><input type="radio" name="gender" value="Unisex"> Unisex</label>
+                <label><input type="radio" name="gender" value="" checked> Any</label>
+            </div>
+        </div>
+        <hr class="divider">
+        <div class="filter-category">
+            <p class="category-title">ROOM SHARING</p>
+            <div class="checkbox-group">
+                <label><input type="checkbox" name="sharing" value="2"> 2 Sharing</label>
+                <label><input type="checkbox" name="sharing" value="3"> 3 Sharing</label>
+                <label><input type="checkbox" name="sharing" value="4"> 4 Sharing</label>
+            </div>
+        </div>
+        <hr class="divider">
+        <div class="filter-category">
+            <p class="category-title">AMENITIES</p>
+            <div class="checkbox-group">
+                <label><input type="checkbox" name="wifi" value="true"> WiFi</label>
+                <label><input type="checkbox" name="food" value="true"> Food / Mess</label>
+                <label><input type="checkbox" name="ac" value="true"> Air Conditioning</label>
+            </div>
+        </div>
+        <div class="sidebar-footer">
+            <a href="/" class="reset-link">CLEAR ALL</a>
+            <button type="submit" class="apply-sidebar-btn">APPLY</button>
+        </div>
+    </form>
+</div>
+<div id="sidebarOverlay" class="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+<script>
+    // Toggle Sidebar Function
+    function toggleSidebar() {
+        document.getElementById('filterSidebar').classList.toggle('active');
+        document.getElementById('sidebarOverlay').classList.toggle('active');
+        document.body.classList.toggle('no-scroll');
+    }
+
+    // Sort Function - PLACE THIS HERE
+    function applySort(value) {
+        // This captures all existing filters (location, gender, etc.) from the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        
+        // This specifically updates or adds the 'sort' parameter without deleting others
+        urlParams.set('sort', value); 
+        
+        // Redirects with the combined parameters (e.g., /search?location=pune&sort=low)
+        window.location.href = '/search?' + urlParams.toString();
+    }
+</script>
+</body>
 
 <section class="listings-container">
     <div class="pg-grid">

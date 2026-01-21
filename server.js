@@ -68,34 +68,43 @@ app.get('/signup', (req, res) => res.render('signup'));
 app.get('/logout', (req, res) => { req.session.destroy(); res.redirect('/'); });
 
 // Optimized Search Route - Handles Dropdowns & Filter Menu
+// ONE Search Route to Rule Them All
 app.get('/search', (req, res) => {
     try {
-        const { location, gender, sharing, wifi, food, ac } = req.query;
+        const { location, gender, sharing, wifi, food, ac, sort } = req.query;
         let pgs = JSON.parse(fs.readFileSync('./data/pgs.json', 'utf-8'));
         const areasData = JSON.parse(fs.readFileSync('./data/areas.json', 'utf-8'));
 
-        // 1. Location Filter (Dropdown)
+        // --- FILTERING LOGIC ---
         if (location && location !== "") {
             pgs = pgs.filter(p => p.location === location);
         }
 
-        // 2. Gender Filter (Dropdown)
         if (gender && gender !== "") {
             pgs = pgs.filter(p => p.gender === gender);
         }
 
-        // 3. Sharing Filter (Dropdown - Handles Arrays)
-        if (sharing && sharing !== "") {
+        if (sharing) {
+            // Converts sharing to number and checks if it exists in PG sharing array
             const sNum = parseInt(sharing);
             pgs = pgs.filter(p => Array.isArray(p.sharing) ? p.sharing.includes(sNum) : p.sharing == sNum);
         }
 
-        // 4. Amenities (Checkboxes)
+        // Amenities (Checks for the string 'true' sent by the form)
         if (wifi === 'true') pgs = pgs.filter(p => p.wifi === true);
         if (food === 'true') pgs = pgs.filter(p => p.food === true);
         if (ac === 'true') pgs = pgs.filter(p => p.ac === true);
 
-        res.render('index', { pgs: pgs, areaData: areasData });
+        // --- SORTING LOGIC ---
+        if (sort === 'low') {
+            pgs.sort((a, b) => a.rent - b.rent);
+        } else if (sort === 'high') {
+            pgs.sort((a, b) => b.rent - a.rent);
+        }
+
+        // Send 'location' back so the sidebar knows which area is currently selected
+        res.render('index', { pgs, areaData: areasData, location: location || "" });
+        
     } catch (err) {
         console.error("Search Error:", err);
         res.redirect('/');
