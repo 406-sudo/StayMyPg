@@ -50,7 +50,17 @@ app.get('/search', (req, res) => {
     const filteredPgs = location ? pgs.filter(p => p.location === location) : pgs;
     res.render('index', { pgs: filteredPgs, areaData: areasData });
 });
-
+app.get('/pg/:id', (req, res) => { 
+    const data = JSON.parse(fs.readFileSync('./data/pgs.json', 'utf-8'));
+    const pg = data.find(p => p.id == req.params.id);
+    
+    if (pg) {
+        // You must pass the 'pg' object here
+        res.render('details', { pg: pg }); 
+    } else {
+        res.status(404).send('PG not found');
+    }
+});
 // PG Details Route
 // Currently login is OFF. To turn it ON, add checkAuth before (req, res)
 app.get('/pg/:id', (req, res) => { 
@@ -143,3 +153,8 @@ app.post('/inquire', (req, res) => {
     res.send("<script>alert('Inquiry Sent Successfully! The owner will contact you.'); window.location.href='/';</script>");
 });
 app.listen(3000, () => console.log("🚀 Server running at http://localhost:3000"));
+
+
+
+
+
