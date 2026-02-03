@@ -75,8 +75,8 @@
                 <div class="pg-card" onclick="window.location.href='/pg/<%= pg.id %>'">
                     <div class="pg-img-container">
                         <img src="<%= pg.image %>" alt="<%= pg.name %>">
-                        <span class="gender-badge <%= pg.gender.toLowerCase() %>">
-                            <%= pg.gender %>
+                        <<span class="gender-badge <%= (pg.gender ? pg.gender.toLowerCase() : 'unspecified') %>">
+                            <%= pg.gender || 'Not Specified' %>
                         </span>
                     </div>
                     <div style="padding: 20px;">
@@ -165,8 +165,8 @@
                     
                     <div class="pg-img-container">
                         <img src="<%= pg.image %>" alt="<%= pg.name %>">
-                        <span class="gender-badge <%= pg.gender.toLowerCase() %>">
-                            <%= pg.gender %>
+                       <span class="gender-badge <%= (pg.gender || 'Boys').toLowerCase() %>">
+                            <%= pg.gender || 'Boys' %>
                         </span>
                     </div>
                     <div style="padding: 20px;">

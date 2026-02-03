@@ -1,0 +1,111 @@
+<style>
+    /* Dark Theme Input Styles */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #0f172a; font-family: 'Inter', sans-serif; }
+    
+    input[type="number"], select, textarea {
+        background: rgba(255,255,255,0.05);
+        border: 1px solid rgba(255,255,255,0.1);
+        color: white;
+        padding: 12px;
+        border-radius: 10px;
+        width: 100%;
+        margin-top: 8px;
+    }
+    
+    .save-btn {
+        background: #2563eb;
+        color: white;
+        padding: 15px 30px;
+        border: none;
+        border-radius: 12px;
+        font-weight: bold;
+        cursor: pointer;
+        margin-top: 20px;
+        transition: background 0.2s;
+    }
+    .save-btn:hover { background: #1d4ed8; }
+
+    .checkbox-group {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        margin-top: 15px;
+    }
+    .checkbox-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        cursor: pointer;
+    }
+</style>
+
+<div style="display: flex; min-height: 100vh; background: #0f172a; color: white;">
+    <main style="flex: 1; padding: 40px; background: #0f172a; color: white;">
+    <h1 style="margin-bottom: 20px;"><%= pg.ownerName ? 'Edit Details' : 'Setup Your PG Listing' %></h1>
+    <p style="color: #94a3b8; margin-bottom: 30px;">Please provide your details for admin verification.</p>
+
+    <form action="/owner/update-pg" method="POST" style="max-width: 700px;">
+        <section style="background: rgba(255,255,255,0.03); padding: 25px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 20px;">
+            <h3 style="margin-bottom: 15px; color: #2563eb;">Owner Details</h3>
+            <input type="text" name="ownerName" placeholder="Full Name" value="<%= pg.ownerName || '' %>" required>
+            <input type="number" name="ownerAge" placeholder="Age" value="<%= pg.ownerAge || '' %>" required>
+            <input type="tel" name="ownerMobile" placeholder="Mobile Number" value="<%= pg.ownerMobile || '' %>" required>
+            <textarea name="ownerAddress" placeholder="Address" style="margin-top:10px;"><%= pg.ownerAddress || '' %></textarea>
+        </section>
+
+<section style="background: rgba(255,255,255,0.03); padding: 30px; border-radius: 20px; margin-bottom: 25px; border: 1px solid rgba(255,255,255,0.05);">
+    <h3 style="color: #2563eb; margin-bottom: 20px;">PG Property Details</h3>
+    
+    <div>
+        <label>PG Name</label>
+        <input type="text" name="pgName" value="<%= pg.name || '' %>" required>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 15px;">
+        <div>
+            <label>Monthly Rent (₹)</label>
+            <input type="number" name="rent" value="<%= pg.rent || '' %>" required>
+        </div>
+        <div>
+            <label>Allowed Gender</label>
+            <select name="gender" style="background: rgba(255,255,255,0.05); color: white; padding: 12px; border-radius: 10px; width: 100%;">
+                <option value="Boys" <%= pg.gender === 'Boys' ? 'selected' : '' %>>Boys</option>
+                <option value="Girls" <%= pg.gender === 'Girls' ? 'selected' : '' %>>Girls</option>
+                <option value="Co-ed" <%= pg.gender === 'Co-ed' ? 'selected' : '' %>>Co-ed</option>
+            </select>
+        </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 15px;">
+        <div>
+            <label>Total Bed Capacity</label>
+            <input type="number" name="totalRooms" value="<%= pg.totalRooms || 52 %>" required>
+        </div>
+        <div>
+            <label>Current Vacant Beds</label>
+            <input type="number" name="vacantBeds" value="<%= pg.vacantBeds || '' %>" required>
+        </div>
+    </div>
+</section>
+<section style="background: rgba(255,255,255,0.03); padding: 30px; border-radius: 20px; margin-bottom: 25px; border: 1px solid rgba(255,255,255,0.05);">
+    <h3 style="color: #2563eb; margin-bottom: 20px;">Amenities Available</h3>
+    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;">
+        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+            <input type="checkbox" name="wifi" <%= pg.wifi ? 'checked' : '' %>> 📶 High-Speed Wi-Fi
+        </label>
+        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+            <input type="checkbox" name="food" <%= pg.food ? 'checked' : '' %>> 🍴 Daily Meals Included
+        </label>
+        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+            <input type="checkbox" name="laundry" <%= pg.laundry ? 'checked' : '' %>> 🧺 Laundry Service
+        </label>
+        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+            <input type="checkbox" name="ac" <%= pg.ac ? 'checked' : '' %>> ❄️ Air Conditioning
+        </label>
+    </div>
+</section>
+        <button type="submit" class="save-btn" style="width: 100%;">Submit for Verification</button>
+    </form>
+</main>
+</div>

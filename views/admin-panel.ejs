@@ -1,0 +1,30 @@
+<div style="background: #0f172a; color: white; min-height: 100vh; padding: 40px; font-family: 'Inter', sans-serif;">
+    <h1 style="margin-bottom: 30px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px;">Admin Approval Panel</h1>
+
+    <% if (pendingPgs.length === 0) { %>
+        <p style="color: #94a3b8;">No pending requests at the moment.</p>
+    <% } else { %>
+        <div style="display: grid; gap: 20px;">
+            <% pendingPgs.forEach(pg => { %>
+                <div style="background: rgba(255,255,255,0.03); padding: 25px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <h3 style="color: #2563eb; margin-bottom: 5px;"><%= pg.name || 'New Listing' %></h3>
+                        <p style="margin: 0; color: #94a3b8;">Owner: <strong><%= pg.ownerName %></strong></p>
+                        <p style="margin: 0; color: #94a3b8;">Location: <%= pg.location %></p>
+                        <p style="margin: 0; color: #94a3b8;">Mobile: <%= pg.ownerMobile %></p>
+                    </div>
+                    
+                    <form action="/admin/approve-pg/<%= pg.id %>" method="POST">
+                        <button type="submit" style="background: #22c55e; color: white; padding: 12px 25px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer;">
+                            Approve & Go Live
+                        </button>
+                    </form>
+                </div>
+            <% }) %>
+        </div>
+    <% } %>
+    
+    <div style="margin-top: 40px;">
+        <a href="/" style="color: #2563eb; text-decoration: none;">← Back to Home</a>
+    </div>
+</div>
