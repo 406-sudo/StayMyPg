@@ -20,70 +20,44 @@
     "isVerified": true
   },
   {
-    "id": 1770060932772,
-    "ownerName": "x",
-    "ownerAge": "22",
-    "ownerMobile": "s",
-    "ownerAddress": "",
-    "name": "s",
-    "location": "s",
-    "vacantBeds": 40,
+    "id": 1771175094323,
+    "ownerName": "shivam borane",
+    "ownerMobile": "2",
+    "name": "ssss",
+    "rent": 3333,
+    "gender": "Boys",
     "totalRooms": 52,
-    "listingStatus": "approved",
+    "vacantBeds": 26,
+    "image": "/uploads/1771178832099-Screenshot 2026-02-15 233345.png",
+    "gallery": [
+      "/uploads/1771178618571-Screenshot 2026-02-15 223945.png",
+      "/uploads/1771178618571-Screenshot 2026-02-15 223945.png"
+    ],
+    "listingStatus": "pending",
     "wifi": false,
     "food": false,
     "laundry": false,
-    "ac": false,
-    "image": "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=500",
-    "isVerified": true
+    "ac": false
   },
   {
-    "id": 1770061285625,
-    "ownerName": "s",
-    "ownerMobile": "4",
-    "listingStatus": "approved",
-    "isVerified": true
-  },
-  {
-    "id": 1770061337757,
-    "ownerName": " borane",
-    "ownerAge": "11",
-    "ownerMobile": "2",
-    "ownerAddress": "",
-    "name": "sss",
-    "vacantBeds": 20,
-    "totalRooms": 52,
+    "id": 1771178860557,
+    "ownerName": "shivam borane",
+    "ownerMobile": "56565656565",
+    "name": "ssss",
+    "rent": 3333,
     "gender": "Boys",
-    "rent": 2000,
-    "sharing": [
-      2,
-      3
+    "totalRooms": 52,
+    "vacantBeds": 26,
+    "image": "",
+    "gallery": [
+      "",
+      ""
     ],
     "listingStatus": "approved",
     "wifi": false,
     "food": false,
     "laundry": false,
     "ac": false,
-    "image": "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=500",
-    "isVerified": true
-  },
-  {
-    "id": 1770101406039,
-    "ownerName": " borane",
-    "ownerAge": "112",
-    "ownerMobile": "123",
-    "ownerAddress": "",
-    "name": "rdfghjk",
-    "gender": "Boys",
-    "rent": 20000,
-    "vacantBeds": 25,
-    "totalRooms": 52,
-    "wifi": true,
-    "food": true,
-    "laundry": true,
-    "ac": true,
-    "listingStatus": "approved",
-    "image": "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=500",
     "isVerified": true
   }
 ]

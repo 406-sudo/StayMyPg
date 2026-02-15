@@ -1,3 +1,19 @@
+const multer = require('multer');
+
+// Set up where and how files are saved
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, './public/uploads/');
+    },
+    filename: (req, file, cb) => {
+        // Keeps the original file name but adds a timestamp to prevent duplicates
+        cb(null, Date.now() + '-' + file.originalname);
+    }
+});
+
+const upload = multer({ storage: storage });
+
+
 const express = require('express');
 const session = require('express-session');
 const fs = require('fs');
@@ -20,6 +36,9 @@ app.use((req, res, next) => {
     next();
 });
 
+// This tells Express to serve files from the public folder automatically
+app.use(express.static('public'));
+
 // 1. HOME ROUTE - Gateway Choice Page
 app.get('/', (req, res) => {
     res.render('user-type'); 
@@ -41,6 +60,24 @@ app.get('/tenant-home', (req, res) => {
         res.render('index', { pgs: [], areaData: [] });
     }
 });
+
+// --- NEW ROUTE: SHOW INDIVIDUAL PG DETAILS ---
+app.get('/pg/:id', (req, res) => {
+    try {
+        const pgsData = JSON.parse(fs.readFileSync('./data/pgs.json', 'utf-8'));
+        const pg = pgsData.find(p => p.id == req.params.id);
+
+        if (pg) {
+            // This name MUST match your filename in the views folder
+            res.render('pg-details', { pg }); 
+        } else {
+            res.status(404).send("PG not found");
+        }
+    } catch (err) {
+        res.status(500).send("Error");
+    }
+});
+
 // --- 3. SEARCH - Added Safety Checks ---
 app.get('/search', (req, res) => {
     try {
@@ -132,64 +169,80 @@ app.get('/owner/edit-pg', (req, res) => {
 });
 
 // --- Updated Update Route with Error Alert ---
-app.post('/owner/update-pg', (req, res) => {
+// Accepts 1 main image and 2 gallery images from the form
+app.post('/owner/update-pg', upload.fields([
+    { name: 'image', maxCount: 1 }, 
+    { name: 'gallery1', maxCount: 1 }, 
+    { name: 'gallery2', maxCount: 1 }
+]), (req, res) => {
     try {
         const filePath = './data/pgs.json';
-        let pgs = [];
+        let pgs = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
         
-        // Read existing data if the file exists
-        if (fs.existsSync(filePath)) {
-            pgs = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
-        }
-
-        // Check if this is an existing owner (by mobile) or a brand new one
         const existingIndex = pgs.findIndex(p => p.ownerMobile === req.body.ownerMobile);
 
         const pgData = {
-    id: existingIndex !== -1 ? pgs[existingIndex].id : Date.now(),
-    ownerName: req.body.ownerName,
-    ownerAge: req.body.ownerAge,
-    ownerMobile: req.body.ownerMobile,
-    ownerAddress: req.body.ownerAddress,
-    name: req.body.pgName,
-    location: req.body.location,
-    gender: req.body.gender || "Boys",
-    rent: parseInt(req.body.rent) || 0,
-    vacantBeds: parseInt(req.body.vacantBeds) || 0,
-    totalRooms: parseInt(req.body.totalRooms) || 52,
-    
-    // --- AMENITIES CAPTURE ---
-    wifi: req.body.wifi === 'on',    // Converts "on" to true, otherwise false
-    food: req.body.food === 'on',
-    laundry: req.body.laundry === 'on',
-    ac: req.body.ac === 'on',
-    
-    listingStatus: "pending", 
-    image: req.body.image || "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=500"
-};
+            id: existingIndex !== -1 ? pgs[existingIndex].id : Date.now(),
+            ownerName: req.body.ownerName,
+            ownerMobile: req.body.ownerMobile,
+            name: req.body.pgName,
+            location: req.body.location,
+            rent: parseInt(req.body.rent) || 0,
+            gender: req.body.gender || "Boys",
+            totalRooms: parseInt(req.body.totalRooms) || 52,
+            vacantBeds: parseInt(req.body.vacantBeds) || 0,
+            
+            // Check if new files were uploaded; otherwise keep old or default
+            image: req.files['image'] ? '/uploads/' + req.files['image'][0].filename : (existingIndex !== -1 ? pgs[existingIndex].image : ""),
+    gallery: [
+        req.files['gallery1'] ? '/uploads/' + req.files['gallery1'][0].filename : (existingIndex !== -1 && pgs[existingIndex].gallery ? pgs[existingIndex].gallery[0] : ""),
+        req.files['gallery2'] ? '/uploads/' + req.files['gallery2'][0].filename : (existingIndex !== -1 && pgs[existingIndex].gallery ? pgs[existingIndex].gallery[1] : "")
+            ],
 
-        if (existingIndex !== -1) {
-            pgs[existingIndex] = pgData; // Update existing
-        } else {
-            pgs.push(pgData); // Add new listing to the array
-        }
+            listingStatus: "pending",
+            wifi: req.body.wifi === 'on',
+            food: req.body.food === 'on',
+            laundry: req.body.laundry === 'on',
+            ac: req.body.ac === 'on'
+        };
+
+        if (existingIndex !== -1) pgs[existingIndex] = pgData;
+        else pgs.push(pgData);
 
         fs.writeFileSync(filePath, JSON.stringify(pgs, null, 2));
-        res.send("<script>alert('Your PG has been submitted for Admin approval!'); window.location.href='/owner/dashboard?id=" + pgData.id + "';</script>");
+        res.send("<script>alert('Submission Successful!'); window.location.href='/owner/dashboard?id=" + pgData.id + "';</script>");
     } catch (err) {
-        res.status(500).send("Error saving your listing.");
+        console.error("Upload Error:", err);
+        res.status(500).send("Server Error. Please ensure the 'public/uploads' folder exists.");
     }
 });
 
 
+
 // 7. INQUIRY HANDLER
 app.post('/inquire', (req, res) => {
-    const { pgId, pgName, userName, userEmail, userPhone, message } = req.body;
-    const filePath = './data/inquiries.json';
-    let inquiries = fs.existsSync(filePath) ? JSON.parse(fs.readFileSync(filePath, 'utf-8')) : [];
-    inquiries.push({ id: Date.now(), pgId, pgName, userName, userEmail, userPhone, message, date: new Date().toLocaleString() });
-    fs.writeFileSync(filePath, JSON.stringify(inquiries, null, 2));
-    res.send("<script>alert('Inquiry Sent!'); window.location.href='/tenant-home';</script>");
+    try {
+        const filePath = './data/inquiries.json';
+        let inquiries = [];
+        
+        if (fs.existsSync(filePath)) {
+            inquiries = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+        }
+
+        // Save the inquiry with the PG name and ID
+        inquiries.push({
+            id: Date.now(),
+            ...req.body,
+            date: new Date().toLocaleString()
+        });
+
+        fs.writeFileSync(filePath, JSON.stringify(inquiries, null, 2));
+        
+        // Show a success message then go back
+        res.send("<script>alert('Inquiry sent to owner!'); window.history.back();</script>");
+    } catch (err) {
+        res.status(500).send("Error sending inquiry");
+    }
 });
 
 // 1. Route to view the panel

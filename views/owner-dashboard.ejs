@@ -1,5 +1,5 @@
 <style>
-    /* 1. Global Reset to remove the "white border" */
+    /* Global Reset */
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body, html {
@@ -10,67 +10,98 @@
         font-family: 'Inter', sans-serif;
     }
 
-    /* 2. Custom Scrollbar to match your Dark UI */
+    /* Custom Scrollbar */
     ::-webkit-scrollbar { width: 8px; }
     ::-webkit-scrollbar-track { background: #0f172a; }
     ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
+    
+    .gallery-img { 
+        width: 100%; 
+        height: 150px; 
+        object-fit: cover; 
+        border-radius: 10px; 
+        border: 1px solid rgba(255,255,255,0.1); 
+        background: #1e293b; /* Placeholder color if image takes time to load */
+    }
 </style>
 
 <div style="display: flex; min-height: 100vh; background: #0f172a; color: white;">
     
-    <nav style="width: 260px; display: flex; flex-direction: column; gap: 10px; padding: 30px; border-right: 1px solid rgba(255,255,255,0.05);">
+    <nav style="width: 260px; display: flex; flex-direction: column; gap: 10px; padding: 30px; border-right: 1px solid rgba(255,255,255,0.05); position: fixed; height: 100vh;">
         <h2 style="color: #2563eb; margin-bottom: 30px;">StayMyPg</h2>
-        <a href="/owner/dashboard" style="padding: 15px; background: #2563eb; border-radius: 12px; color: white; text-decoration: none;">📊 Dashboard</a>
-        <a href="/owner/edit-pg" style="padding: 15px; color: #94a3b8; text-decoration: none;">🏠 My PG Details</a>
+        <a href="/owner/dashboard?id=<%= owner.id %>" style="padding: 15px; background: #2563eb; border-radius: 12px; color: white; text-decoration: none;">📊 Dashboard</a>
+        <a href="/owner/edit-pg?id=<%= owner.id %>" style="padding: 15px; color: #94a3b8; text-decoration: none;">🏠 My PG Details</a>
         <a href="#" style="padding: 15px; color: #94a3b8; text-decoration: none;">👥 Tenant Requests</a>
         <a href="#" style="padding: 15px; color: #94a3b8; text-decoration: none;">⚙️ Settings</a>
     </nav>
 
-<main style="flex: 1; padding: 40px; overflow-y: auto;">
-    <header style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px;">
-        <h1>Owner Management</h1>
-        <div style="display: flex; align-items: center; gap: 15px;">
-            <span>Welcome, <%= owner.name %></span>
-            <div style="width: 40px; height: 40px; background: #2563eb; border-radius: 50%; display: flex; align-items: center; justify-content: center;">RS</div>
-        </div>
-    </header>
+    <main style="flex: 1; padding: 40px; margin-left: 260px; overflow-y: auto;">
+        <header style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px;">
+            <h1>Owner Management</h1>
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <span>Welcome, <strong><%= owner.ownerName %></strong></span>
+                <div style="width: 40px; height: 40px; background: #2563eb; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">
+                    <%= owner.ownerName ? owner.ownerName.charAt(0) : 'O' %>
+                </div>
+            </div>
+        </header>
 
-    <% if (owner.listingStatus === 'pending') { %>
-        <div style="background: #fef9c3; color: #854d0e; padding: 15px; border-radius: 12px; border: 1px solid #facc15; margin-bottom: 25px;">
-            ⚠️ <strong>Review in Progress:</strong> Your details are sent to Admin for approval.
-        </div>
-    <% } %>
+        <% if (owner.listingStatus === 'pending') { %>
+            <div style="background: #fef9c3; color: #854d0e; padding: 15px; border-radius: 12px; border: 1px solid #facc15; margin-bottom: 25px;">
+                ⚠️ <strong>Review in Progress:</strong> Your details are sent to Admin for approval.
+            </div>
+        <% } %>
 
-    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 40px;">
-        <div style="background: rgba(255,255,255,0.03); padding: 25px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05);">
-            <p style="color: #94a3b8;">Vacant Beds</p>
-            <h2 style="font-size: 2rem;"><%= owner.vacantBeds %> of <%= owner.totalRooms %></h2>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 40px;">
+            <div style="background: rgba(255,255,255,0.03); padding: 25px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05);">
+                <p style="color: #94a3b8;">Vacant Beds</p>
+                <h2 style="font-size: 2rem;"><%= owner.vacantBeds %> <span style="font-size: 1.1rem; color: #64748b;">of <%= owner.totalRooms %></span></h2>
+            </div>
+            <div style="background: rgba(255,255,255,0.03); padding: 25px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05);">
+                <p style="color: #94a3b8;">Total Capacity</p>
+                <h2 style="font-size: 2rem;"><%= owner.totalRooms %></h2>
+            </div>
+            <div style="background: rgba(255,255,255,0.03); padding: 25px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05);">
+                <p style="color: #94a3b8;">Occupancy Rate</p>
+                <% let rate = Math.round(((owner.totalRooms - owner.vacantBeds) / owner.totalRooms) * 100) || 0; %>
+                <h2 style="font-size: 2rem; color: #22c55e;"><%= rate %>%</h2>
+            </div>
         </div>
-        <div style="background: rgba(255,255,255,0.03); padding: 25px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05);">
-            <p style="color: #94a3b8;">Total Capacity</p>
-            <h2 style="font-size: 2rem;"><%= owner.totalRooms %></h2>
-        </div>
-        <div style="background: rgba(255,255,255,0.03); padding: 25px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05);">
-            <p style="color: #94a3b8;">Occupancy</p>
-            <h2 style="font-size: 2rem; color: #22c55e;"><%= owner.occupancy %></h2>
-        </div>
-    </div>
 
-    <section style="background: rgba(255,255,255,0.03); padding: 30px; border-radius: 24px; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 30px;">
-        <h3 style="margin-bottom: 20px;">Active Amenities</h3>
-        <div style="display: flex; gap: 15px;">
-            <% if (owner.wifi) { %><div style="padding: 10px 20px; border-radius: 12px; border: 1px solid #22c55e; color: #22c55e;">📶 Wi-Fi</div><% } %>
-            <% if (owner.food) { %><div style="padding: 10px 20px; border-radius: 12px; border: 1px solid #22c55e; color: #22c55e;">🍴 Food</div><% } %>
-            <% if (owner.laundry) { %><div style="padding: 10px 20px; border-radius: 12px; border: 1px solid #22c55e; color: #22c55e;">🧺 Laundry</div><% } %>
+        <div style="margin-top: 30px; background: rgba(255,255,255,0.02); padding: 25px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05);">
+            <h3 style="margin-bottom: 20px; color: #2563eb;">Property Gallery Preview</h3>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px;">
+                <img src="<%= owner.image %>" class="gallery-img" onerror="this.src='https://placehold.co/600x400?text=No+Photo+Uploaded'">
+                
+                <% if (owner.gallery && owner.gallery[0]) { %>
+                    <img src="<%= owner.gallery[0] %>" class="gallery-img" onerror="this.src='https://placehold.co/600x400?text=Gallery+1+Empty'">
+                <% } %>
+                
+                <% if (owner.gallery && owner.gallery[1]) { %>
+                    <img src="<%= owner.gallery[1] %>" class="gallery-img" onerror="this.src='https://placehold.co/600x400?text=Gallery+2+Empty'">
+                <% } %>
+            </div>
         </div>
-    </section>
 
-    <section style="background: rgba(255,255,255,0.03); padding: 30px; border-radius: 24px; border: 1px solid rgba(255,255,255,0.05);">
-        <h3 style="margin-bottom: 20px;">Quick Actions</h3>
-<button onclick="window.location.href='/owner/edit-pg?id=<%= owner.id %>'" 
-        style="padding: 15px 30px; background: #2563eb; color: white; border: none; border-radius: 12px; font-weight: bold; cursor: pointer;">
-    Edit PG & Owner Details
-</button>
-    </section>
-</main>
+        <section style="background: rgba(255,255,255,0.03); padding: 30px; border-radius: 24px; border: 1px solid rgba(255,255,255,0.05); margin-top: 30px; margin-bottom: 30px;">
+            <h3 style="margin-bottom: 20px; color: #2563eb;">Active Amenities</h3>
+            <div style="display: flex; flex-wrap: wrap; gap: 15px;">
+                <% if (owner.wifi) { %><div style="padding: 10px 20px; border-radius: 12px; border: 1px solid #22c55e; color: #22c55e;">📶 Wi-Fi</div><% } %>
+                <% if (owner.food) { %><div style="padding: 10px 20px; border-radius: 12px; border: 1px solid #22c55e; color: #22c55e;">🍴 Food</div><% } %>
+                <% if (owner.laundry) { %><div style="padding: 10px 20px; border-radius: 12px; border: 1px solid #22c55e; color: #22c55e;">🧺 Laundry</div><% } %>
+                <% if (owner.ac) { %><div style="padding: 10px 20px; border-radius: 12px; border: 1px solid #22c55e; color: #22c55e;">❄️ AC</div><% } %>
+                <% if (!owner.wifi && !owner.food && !owner.laundry && !owner.ac) { %>
+                    <p style="color: #64748b;">No amenities highlighted yet.</p>
+                <% } %>
+            </div>
+        </section>
+
+        <section style="background: rgba(255,255,255,0.03); padding: 30px; border-radius: 24px; border: 1px solid rgba(255,255,255,0.05);">
+            <h3 style="margin-bottom: 20px;">Quick Actions</h3>
+            <button onclick="window.location.href='/owner/edit-pg?id=<%= owner.id %>'" 
+                    style="padding: 15px 30px; background: #2563eb; color: white; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; transition: 0.3s;">
+                Edit PG & Owner Details
+            </button>
+        </section>
+    </main>
 </div>
